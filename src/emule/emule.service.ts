@@ -6,10 +6,8 @@ import { Queue } from 'bull';
 import { catchError, firstValueFrom, throwError } from 'rxjs';
 import { RedisCacheService } from 'src/redis-cache/redis-cache.service';
 import { JobData } from './entity/JobData.class';
-const xpath = require('xpath');
-const parse5 = require('parse5');
-const xmlser = require('xmlserializer');
-const dom = require('xmldom').DOMParser;
+import { parse } from 'node-html-parser';
+const cheerio = require('cheerio');
 @Injectable()
 export class EmuleService implements OnModuleInit {
     emuleRequest: Queue;
@@ -39,7 +37,6 @@ export class EmuleService implements OnModuleInit {
             }, // 2 seconds delayed
         );
         const data = await job.finished();
-        console.log(job, data);
 
         return this.checkLoginPage(data, dataObject);
     }
@@ -49,21 +46,31 @@ export class EmuleService implements OnModuleInit {
             {
                 delay: 2000, attempts: 0,
                 removeOnFail: true
+
             }, // 2 seconds delayed
         );
         const data = await job.finished();
-        console.log(job, data);
+
         return this.checkLoginPage(data, dataObject);
 
     }
 
     async checkLoginPage(data, dataObject: JobData) {
-        if (data.indexOf('.failed') >= 0) {
+        if (typeof data === 'string' && data.indexOf('.failed') >= 0) {
             console.log("SES failed");
             this.storeRedisIdEmule();
             return this.processRequestQueue(dataObject);
         };
         return data;
+    }
+
+    async checkLoginPageSearch(data) {
+        if (typeof data === 'string' && data.indexOf('.failed') >= 0) {
+            console.log("SES failed");
+            this.storeRedisIdEmule();
+            return true;
+        };
+        return false;
     }
     async storeRedisIdEmule() {
         let value;
@@ -82,15 +89,19 @@ export class EmuleService implements OnModuleInit {
             'w': 'password'
         };
         const html = await this.makeRequest(urlParameters);
-        console.log(html);
 
-        const document = parse5.parse(html.toString());
-        const xhtml = xmlser.serializeToString(document);
-        const doc = new dom().parseFromString(xhtml);
-        const select = xpath.useNamespaces({ "x": "http://www.w3.org/1999/xhtml" });
-        const nodes = select("//x:a[contains(text(),'My Info')]/@href", doc);
-        console.log(nodes);
-        const href = nodes[0].value;
+        let $ = cheerio.load(html);
+
+        let products = [];
+
+        const node = $("a:contains('My Info')").attr('href')
+
+        /*
+        const node = parse(html); 
+        console.log(node.querySelector("a:contains('My Info')"));
+        const nodesAttribute = node.querySelector("a:contains('My Info')").rawAttrs
+        */
+        const href = node;
         const cadena = href;
         const regex = /ses=(.*?)&/;
         const resultado = regex.exec(cadena);
@@ -127,15 +138,51 @@ export class EmuleService implements OnModuleInit {
             console.log(error);
             return html;
         }
-        console.log(html);
         return html;
     }
-    async getSearchResults(html: string) {
+    async getSearchResults() {
+
+        const ses = await this.redisCacheService.retriveValue();
+        const urlParameters = {
+            'ses': ses,
+            'w': 'search'
+        };
+        let html: string;
+        try {
+            html = await this.makeRequest(urlParameters);
+        } catch (error) {
+            console.log(error);
+            throw Error(error);
+        }
+
+        const node = parse(html);
+        let $ = cheerio.load(html);
+
+        let files = [];
+
+        const nodes = $("form[method='GET'] table:has(a:contains('Search'))");
+        $("tr", nodes).each((i, el) => {
+            if (el.children.length == 11 && typeof ($(el).find("a").attr('onmouseover')) !== 'undefined') {
+                const ed2kInfo = ($(el).find("a").attr('onmouseover')).split("|");
+                const peersSeeds = (($(el.children[7]).text()).replace([')'], '')).split('(')
+                files.push({
+                    hash: ed2kInfo[4],
+                    nameFile: ed2kInfo[2],
+                    size: ed2kInfo[3],
+                    peers: peersSeeds[0],
+                    seeds: peersSeeds[1],
+                });
+            }
+
+        });
+
+        return files;
 
 
     }
     async makeRequest(parameters) {
         const config = this.configGenerator(parameters);
+        console.log(`Start HTTP request with parameter: ${JSON.stringify(parameters)}`);
         const { data } = await firstValueFrom(
             this.httpService.post<any>(this.baseUrl + '/',
                 config.urlParam, {

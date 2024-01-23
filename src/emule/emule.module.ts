@@ -32,6 +32,7 @@ import { EmuleSearchConsumer } from './consumers/emule-search.comsumer';
     RedisCacheModule,
   ],
   providers: [EmuleService, EmuleRequestConsumer, EmuleSearchConsumer],
-  controllers: [EmuleController]
+  controllers: [EmuleController],
+  exports: [BullModule]
 })
 export class EmuleModule { }

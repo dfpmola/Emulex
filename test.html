@@ -1,0 +1,2021 @@
+"
+<!DOCTYPE html SYSTEM>\n<html>\n
+
+<head>\n
+   <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n
+   <meta http-equiv=\"PRAGMA\" content=\"no-cache\">\n
+   <link rel=\"icon\" href=\"favicon.ico\">\n<title>eMule 0.70a x64 - Web Interface</title>\n<style>
+      \nimg\n {
+         \nborder: 0px;
+         \n
+      }
+
+      \nimg.link\n {
+         \ncursor: pointer;
+         \n
+      }
+
+      \nform\n {
+         \ndisplay: inline;
+         \n
+      }
+
+      \na:active,
+      a:link,
+      a:visited\n {
+         \ncolor: white;
+         \ntext-decoration: none;
+         \n
+      }
+
+      \na:hover\n {
+         \ncolor: #FFC412;
+         \ntext-decoration: none;
+         \n
+      }
+
+      \n.down-line-downloading a:hover\n {
+         \ncolor: #FFC412;
+         \ntext-decoration: none;
+         \n
+      }
+
+      \n.down-header,
+      .down-header-left,
+      .down-header-right,
+      \n.down-line-hashing,
+      .down-line-hashing-left,
+      .down-line-hashing-right,
+      \n.down-line-waitinghash,
+      .down-line-waitinghash-left,
+      .down-line-waitinghash-right,
+      \n.down-line-error,
+      .down-line-error-left,
+      .down-line-error-right,
+      \n.down-line-stalled,
+      .down-line-stalled-left,
+      .down-line-stalled-right,
+      \n.down-line-complete,
+      .down-line-complete-left,
+      .down-line-complete-right,
+      \n.down-line-completing,
+      .down-line-completing-left,
+      .down-line-completing-right,
+      \n.down-line-waiting,
+      .down-line-waiting-left,
+      .down-line-waiting-right,
+      \n.down-line-paused,
+      .down-line-paused-left,
+      .down-line-paused-right,
+      \n.down-line-stopped,
+      .down-line-stopped-left,
+      .down-line-stopped-right,
+      \n.down-line-downloading,
+      .down-line-downloading-left,
+      .down-line-downloading-right,
+      \n.up-header,
+      .up-header-left,
+      \n.up-line-uploading,
+      .up-line-uploading-left,
+      \n.up-line-connecting,
+      .up-line-connecting-left,
+      \n.server-header,
+      .server-header-left,
+      \n.server-line-disconnected,
+      .server-line-disconnected-left,
+      \n.server-line-high,
+      .server-line-high-left,
+      \n.server-line-low,
+      .server-line-low-left,
+      \n.server-line-connecting,
+      .server-line-connecting-left,
+      \n.server-line-failed,
+      .server-line-failed-left,
+      \n.shared-header,
+      .shared-header-left,
+      \n.shared-line-file,
+      .shared-line-file-left,
+      \n.shared-line-filedown,
+      .shared-line-filedown-left,
+      \n.header,
+      .smallheader,
+      .commontext,
+      \n.upqueue-header,
+      .upqueue-header-left,
+      \n.upqueue-none-line,
+      .upqueue-none-line-left,
+      \n.upqueue-banned-line,
+      .upqueue-banned-line-left,
+      \n.upqueue-friend-line,
+      .upqueue-friend-line-left,
+      \n.upqueue-credit-line,
+      .upqueue-credit-line-left,
+      \n.upqueue-next-line,
+      .upqueue-next-line-left,
+      \n.search-header,
+      .search-header-left,
+      .search-header-right,
+      .search-main,
+      .search-line,
+      .search-line-left,
+      .search-line-right,
+      \n.addserver-header,
+      .addserver-line\n {
+         \nfont-family: Tahoma;
+         \nfont-size: 8pt;
+         \n
+      }
+
+      \n.tabs\n {
+         \nfont-family: Tahoma;
+         \nfont-size: 8pt;
+         \nbackground-color: #1F76A5;
+         \n
+      }
+
+      \n.tabs_two\n {
+         \nfont-family: Tahoma;
+         \nfont-size: 8pt;
+         \nbackground-color: #0075B3;
+         \n
+      }
+
+      \n.tabs_three\n {
+         \nfont-family: Tahoma;
+         \nfont-size: 10pt;
+         \nfont-weight: bold;
+         \n
+      }
+
+      \n.tabs_four\n {
+         \nfont-family: Tahoma;
+         \nfont-size: 8pt;
+         \n
+      }
+
+      \n.tabs_five\n {
+         \nfont-family: Tahoma;
+         \nfont-size: 8pt;
+         \nbackground-color: #005784;
+         \n
+      }
+
+      \n.down-header,
+      .down-line-hashing,
+      .down-line-waitinghash,
+      .down-line-error,
+      .down-line-stalled,
+      .down-line-complete,
+      .down-line-completing,
+      .down-line-waiting,
+      .down-line-paused,
+      .down-line-stopped,
+      .down-line-downloading,
+      \n.up-header,
+      .up-line-connecting,
+      .up-line-uploading,
+      \n.server-header,
+      .server-line-disconnected,
+      .server-line-high,
+      .server-line-low,
+      .server-line-connecting,
+      .server-line-failed,
+      \n.shared-header,
+      .shared-line-file,
+      .shared-line-filedown,
+      \n.upqueue-header,
+      .upqueue-none-line,
+      .upqueue-banned-line,
+      .upqueue-friend-line,
+      .upqueue-credit-line,
+      .upqueue-next-line,
+      \n.search-header,
+      .search-line,
+      .addserver-header,
+      .addserver-line\n {
+         \ntext-align: center;
+         \n
+      }
+
+      \n.down-header-left,
+      .down-line-hashing-left,
+      .down-line-waitinghash-left,
+      .down-line-error-left,
+      .down-line-stalled-left,
+      .down-line-complete-left,
+      .down-line-completing-left,
+      .down-line-waiting-left,
+      .down-line-paused-left,
+      .down-line-stopped-left,
+      .down-line-downloading-left,
+      \n.up-header-left,
+      .upqueue-header-left,
+      .up-line-uploading-left,
+      .up-line-connecting-left,
+      \n.server-header-left,
+      .server-line-disconnected-left,
+      .server-line-high-left,
+      .server-line-low-left,
+      .server-line-connecting-left,
+      .server-line-failed-left,
+      .shared-header-left,
+      \n.shared-line-file-left,
+      .shared-line-filedown-left,
+      \n.upqueue-none-line-left,
+      .upqueue-banned-line-left,
+      .upqueue-friend-line-left,
+      .upqueue-credit-line-left,
+      .upqueue-next-line-left,
+      \n.search-line-left,
+      .search-header-left,
+      .search-main\n {
+         \ntext-align: left;
+         \n
+      }
+
+      \n.down-header-right,
+      .down-line-hashing-right,
+      .down-line-waitinghash-right,
+      .down-line-error-right,
+      .down-line-stalled-right,
+      .down-line-complete-right,
+      .down-line-completing-right,
+      .down-line-waiting-right,
+      .down-line-paused-right,
+      .down-line-stopped-right,
+      .down-line-downloading-right,
+      .search-line-right,
+      .search-header-right\n {
+         \ntext-align: right;
+         \n
+      }
+
+      \n.down-header,
+      .down-header-left,
+      .down-header-right,
+      \n.up-header,
+      .up-header-left,
+      .server-header,
+      .server-header-left,
+      \n.shared-header,
+      .shared-header-left,
+      .upqueue-header,
+      .upqueue-header-left,
+      \n.addserver-header,
+      .search-header,
+      .search-header-left,
+      .search-header-right\n {
+         \nbackground-color: #005784;
+         \n
+      }
+
+      \n.search-main\n {
+         \nbackground-color: #000000;
+         \n
+      }
+
+      \n.header\n {
+         \nbackground-color: #0046AC;
+         \n
+      }
+
+      \n.smallheader\n {
+         \nbackground-color: #003C6E;
+         \ncolor: #FFFFFF;
+         \n
+      }
+
+      \n.commontext\n {
+         \nbackground-color: #FFFFFF;
+         \ncolor: #000000;
+         \n
+      }
+
+      \n.down-line-hashing,
+      .down-line-waitinghash,
+      .down-line-error,
+      .down-line-stalled,
+      .down-line-complete,
+      .down-line-completing,
+      .down-line-waiting,
+      .down-line-paused,
+      .down-line-stopped,
+      .down-line-downloading,
+      \n.down-line-hashing-left,
+      .down-line-waitinghash-left,
+      .down-line-error-left,
+      .down-line-stalled-left,
+      .down-line-complete-left,
+      .down-line-completing-left,
+      .down-line-waiting-left,
+      .down-line-paused-left,
+      .down-line-stopped-left,
+      .down-line-downloading-left,
+      \n.down-line-hashing-right,
+      .down-line-waitinghash-right,
+      .down-line-error-right,
+      .down-line-stalled-right,
+      .down-line-complete-right,
+      .down-line-completing-right,
+      .down-line-waiting-right,
+      .down-line-paused-right,
+      .down-line-stopped-right,
+      .down-line-downloading-right,
+      \n.up-line-connecting,
+      .up-line-connecting-left,
+      .up-line-uploading,
+      .up-line-uploading-left,
+      \n.server-line-disconnected,
+      .server-line-disconnected-left,
+      \n.server-line-high,
+      .server-line-high-left,
+      \n.server-line-low,
+      .server-line-low-left,
+      \n.server-line-connecting,
+      .server-line-connecting-left,
+      \n.server-line-failed,
+      .server-line-failed-left,
+      \n.shared-line-file,
+      .shared-line-file-left,
+      \n.shared-line-filedown,
+      .shared-line-filedown-left,
+      \n.upqueue-none-line,
+      .upqueue-none-line-left,
+      \n.upqueue-banned-line,
+      .upqueue-banned-line-left,
+      \n.upqueue-friend-line,
+      .upqueue-friend-line-left,
+      \n.upqueue-credit-line,
+      .upqueue-credit-line-left,
+      \n.upqueue-next-line,
+      .upqueue-next-line-left,
+      \n.search-line,
+      .search-line-left,
+      .search-line-right,
+      .addserver-line\n {
+         \nbackground-color: #1F76A5;
+         \n
+      }
+
+      \n.down-line-waiting a:active,
+      .down-line-waiting a:link,
+      .down-line-waiting a:visited,
+      \n.shared-line-file a:active,
+      .shared-line-file a:link,
+      .shared-line-file a:visited,
+      \n.server-line-disconnected a:active,
+      .server-line-disconnected a:link,
+      .server-line-disconnected a:visited\n {
+         \ncolor: #ffffff;
+         \n
+      }
+
+      \n.server-line-high,
+      .server-line-high-left,
+      .server-line-high a:active,
+      .server-line-high a:link,
+      .server-line-high a:visited,
+      \n.upqueue-friend-line,
+      .upqueue-friend-line-left,
+      \n.up-line-uploading,
+      .up-line-uploading-left,
+      \n.down-line-downloading,
+      .down-line-downloading-left,
+      .down-line-downloading-right,
+      .down-line-downloading a:link,
+      .down-line-downloading a:active,
+      .down-line-downloading a:visited\n {
+         \ncolor: #00ff00;
+         \n
+      }
+
+      \n.server-line-low,
+      .server-line-low-left,
+      .server-line-low a:active,
+      .server-line-low a:link,
+      .server-line-low a:visited,
+      \n.upqueue-credit-line,
+      .upqueue-credit-line-left,
+      \n.down-line-hashing,
+      .down-line-hashing-left,
+      .down-line-hashing-right,
+      .down-line-hashing a:active,
+      .down-line-hashing a:link,
+      .down-line-hashing a:visited\n {
+         \ncolor: #ffff00;
+         \n
+      }
+
+      \n.down-line-waitinghash,
+      .down-line-waitinghash-left,
+      .down-line-waitinghash-right,
+      .down-line-waitinghash a:active,
+      .down-line-waitinghash a:link,
+      .down-line-waitinghash a:visited\n {
+         \ncolor: #feff89;
+         \n
+      }
+
+      \n.server-line-connecting,
+      .server-line-connecting-left,
+      .server-line-connecting a:active,
+      .server-line-connecting a:link,
+      .server-line-connecting a:visited,
+      \n.down-line-complete,
+      .down-line-complete-left,
+      .down-line-complete-right,
+      .down-line-complete a:active,
+      .down-line-complete a:link,
+      .down-line-complete a:visited\n {
+         \ncolor: #1D3445;
+         \n
+      }
+
+      \n.down-line-completing,
+      .down-line-completing-left,
+      .down-line-completing-right,
+      .down-line-completing a:active,
+      .down-line-completing a:link,
+      .down-line-completing a:visited\n {
+         \ncolor: #2D4F69;
+         \n
+      }
+
+      \n.upqueue-banned-line,
+      .upqueue-banned-line-left,
+      \n.down-line-error,
+      .down-line-error-left,
+      .down-line-error-right,
+      .down-line-error a:active,
+      .down-line-error a:link,
+      .down-line-error a:visited\n {
+         \ncolor: #FF4040;
+         \n
+      }
+
+      \n.upqueue-next-line,
+      .upqueue-next-line-left,
+      \n.down-line-stalled,
+      .down-line-stalled-left,
+      .down-line-stalled-right,
+      .down-line-stalled a:active,
+      .down-line-stalled a:link,
+      .down-line-stalled a:visited\n {
+         \ncolor: #FFC412;
+         \n
+      }
+
+      \n.down-line-paused,
+      .down-line-paused-left,
+      .down-line-paused-right,
+      .down-line-paused a:active,
+      .down-line-paused a:link,
+      .down-line-paused a:visited,
+      \n.shared-line-filedown,
+      .shared-line-filedown-left,
+      .shared-line-filedown a:active,
+      .shared-line-filedown a:link,
+      .shared-line-filedown a:visited,
+      \n.server-line-failed,
+      .server-line-failed-left,
+      .server-line-failed a:active,
+      .server-line-failed a:link,
+      .server-line-failed a:visited\n {
+         \ncolor: #C1C1C1;
+         \n
+      }
+
+      \n.down-line-stopped,
+      .down-line-stopped-left,
+      .down-line-stopped-right,
+      .down-line-stopped a:active,
+      .down-line-stopped a:link,
+      .down-line-stopped a:visited\n {
+         \ncolor: #A0A0A0;
+         \n
+      }
+
+      \n.percent_table\n {
+         \nborder: 0px solid #000000;
+         \nborder-collapse: collapse;
+         \n
+      }
+
+      \n.message\n {
+         \nfont-family: Tahoma;
+         \nfont-size: 8pt;
+         \nfont-weight: bold;
+         \ncolor: #FFFFFF;
+         \nbackground-color: #005784;
+         \n
+      }
+
+      \n.dinput\n {
+         \nborder-width: 1px;
+         \nborder-color: black;
+         \nborder-style: dotted;
+         \n
+      }
+
+      \n.fdown\n {
+         \nfont-weight: bold;
+         \ncolor: #CC0000;
+         \n
+      }
+
+      \n.fok\n {
+         \nfont-weight: bold;
+         \ncolor: #CCFFCC;
+         \n
+      }
+
+      \n.menuskin\n {
+         \nposition: absolute;
+         \nbackground-color: #005784;
+         \nborder: 1px solid black;
+         \nline-height: 18px;
+         \nfont: normal 12px Tahoma;
+         \nz-index: 100;
+         \nvisibility: hidden;
+         \n
+      }
+
+      \n.menuskin a\n {
+         \ntext-decoration: none;
+         \ncolor: white;
+         \n
+      }
+
+      \n.menuimages\n {
+         \nbackground-color: #003C6E;
+         \nborder: 2px #003C6E solid;
+         \nvertical-align: middle;
+         \n
+      }
+
+      \n.menuchecked\n {
+         \nbackground-color: #005784;
+         \nborder: 2px #005784 solid;
+         \nvertical-align: middle;
+         \n
+      }
+
+      \n#mouseoverstyle\n {
+         \nbackground-color: #003C6E;
+         \n
+      }
+
+      \n#mouseoverstyle .menuchecked\n {
+         \nbackground-color: #003C6E;
+         \nborder: 2px #003C6E solid;
+         \n
+      }
+
+      \n
+
+      /* Tooltip customization */
+      \ndiv#tipDiv\n {
+         \nposition: absolute;
+         visibility: hidden;
+         left: 0;
+         top: 0;
+         z-index: 10000;
+         \nbackground-color: #005784;
+         border: 1px solid #000000;
+         \nwidth: 400px;
+         padding: 4px;
+         \nfont-family: Tahoma, Verdana, Arial;
+         \ncolor: #FFFFFF;
+         font-size: 8pt;
+         line-height: 1.2;
+         \n
+      }
+
+      \n
+   </style>\n\n\n
+   <script
+      Language=\"JavaScript\">\n<!--\n/*************************************************************************\n\tPop-it menu - By Dynamic Drive\n\tFor full source code and more DHTML scripts, visit\n\thttp://www.dynamicdrive.com\n\tThis credit MUST stay intact for use\n*************************************************************************/\nvar ie 4  =document.all\nvar ns 6  =document.getElementByI  d&  &!document.all\nvar ns 4  =document.layers\nvar ed2kinf  ;\nvar iteminf  ;\nvar removeconfir  ;\nvar confirmclos  ;\nvar confirmreboo  ;\nvar confirmshutdow  ;\n\nfunction downmenu(even  ,admi  ,finf  ,ed2  ,downstat  ,isgetfl  ,fnam  ,sessio  ,filehas  ,commentinf  ,downloadabl  )\n
+         {
+         \n\tvar code = new Array() \n\ted2kinfo = ed2k\n\titeminfo = finfo\n\tcmts = commentinfo\n\tremoveconfirm = 'Are you sure that you want to cancel and delete this file?\\n' + fname\n\n\tif(downstate == \"hashing\" || downstate == \"waitinghash\")\n\t\tcode = '<div class=\"menuitems\"><img class=\"menuimages\" src=\"l_hasherror.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Hashing&nbsp;<\\/div>'\n\telse if(downstate == \"error\")\n\t\tcode = '<div class=\"menuitems\"><img class=\"menuimages\" src=\"l_hasherror.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Erroneous&nbsp;<\\/div>'\n\telse if(downstate == \"completing\")\n\t\tcode = '<div class=\"menuitems\"><img class=\"menuimages\" src=\"l_hasherror.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Completing&nbsp;<\\/div>'\n\telse\n\t{\n\t\tcode = '';\n\n\t\tif(admin == \"admin\")\n\t\t{\n\t\t\tif(downstate == \"complete\") {\n\t\t\t\tif (downloadable==\"yes\")\n\t\t\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=getfile&amp;filehash=' + filehash +'\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"downloading.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Download&nbsp;<\\/div><\\/a>'\n\t\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;clearcompleted=' + filehash +'\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_clear.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Clear Completed&nbsp;<\\/div><\\/a>'\n\t\t\t} else {\n\t\t\t\tif(downstate == \"paused\" || downstate == \"stopped\")\n\t\t\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=resume&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_resume.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Resume&nbsp;<\\/div><\\/a>'\n\t\t\t\tif(downstate != \"stopped\")\n\t\t\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=stop&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_stop.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Stop&nbsp;<\\/div><\\/a>'\n\t\t\t\tif(downstate != \"paused\")\n\t\t\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=pause&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_pause.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Pause&nbsp;<\\/div><\\/a>'\n\t\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=cancel&amp;file=' + filehash + '\" onclick=\"return confirm(removeconfirm)\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_cancel.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Cancel&nbsp;<\\/div><\\/a>'\n\t\t\t\tcode += '<a href=\"javascript:filerename(\\'' + session + '\\',\\'' + filehash + '\\',\\'' + fname + '\\')\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_rename.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Rename&nbsp;<\\/div><\\/a>'\n\n        if(isgetflc == \"enabled\")\n\t\t\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=getflc&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_getflc.gif\"><img class=\"menuchecked\" src=\"checked.gif\">Try to download preview chunks first&nbsp;<\\/div><\\/a>'\n        else if(isgetflc == \"disabled\")\n\t\t\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=getflc&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_getflc.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Try to download preview chunks first&nbsp;<\\/div><\\/a>'\n\t\t\t}\n\t\t}\n\n\t\tif (cmts==\"yes\") {\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=commentlist&amp;filehash=' + filehash+'\" target=\"_blank\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_comments.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Comments...&nbsp;<\\/div><\\/a>'\n\t\t}\n\n\t\tcode += '<a href=\"javascript:alert(iteminfo);\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_info.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">File Details&nbsp;<\\/div><\\/a>'\n\t\tcode += '<a href=\"javascript:ToClipboard(ed2kinfo);\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_ed2klink.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">eD2K Links&nbsp;<\\/div><\\/a>'\n\t}\n\n\tshowmenu(event,code)\n}\n\nfunction filerename(session,filehash,fname)\n{\n\tvar newname = prompt(\"Rename\", fname);\n\n\tif (newname != fname && newname != null)\n\t        window.location='/?ses=' + session + '&amp;w=transfer&amp;op=rename&amp;name=' + escape(newname) + '&amp;file=' + filehash;\n}\n\nfunction servermenu(event,admin,ed2k,session,ip,port,isstatic)\n{\n\tvar code = new Array()\n\ted2kinfo = ed2k\n\n\tcode = '<a href=\"javascript:ToClipboard(ed2kinfo);\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_ed2klink.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">eD2K Links&nbsp;<\\/div><\\/a>'\n\n\tif(admin == \"admin\")\n\t{\n\t\tcode += '<a href=\"?ses=' + session + '&amp;w=server&amp;c=connect&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_connect.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Connect&nbsp;<\\/div><\\/a>'\n\t\tcode += '<a href=\"?ses=' + session + '&amp;w=server&amp;c=remove&amp;ip=' + ip + '&amp;port=' + port + '\" onclick=\"return confirm(\\'Are you sure to remove this server from list?\\')' + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_cancel.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Remove&nbsp;<\\/div><\\/a>'\n\t\tif(isstatic)\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=server&amp;c=removefromstatic&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_static.gif\"><img class=\"menuchecked\" src=\"checked.gif\">Static&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=server&amp;c=addtostatic&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_static.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Static&nbsp;<\\/div><\\/a>'\n\t}\n\n\tshowmenu(event,code)\n}\n\nfunction sharedmenu(event,admin,ed2k,session,hash,fname,filestate,downloadable)\n{\n\tvar code = new Array()\n\ted2kinfo = ed2k\n\n\tcode = '<a href=\"javascript:ToClipboard(ed2kinfo);\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_ed2klink.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">eD2K Links&nbsp;<\\/div><\\/a>'\n\tif (downloadable==\"yes\")\n\t\tcode += '<a href=\"?ses=' + session + '&amp;w=getfile&amp;filehash=' + hash +'\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"downloading.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">Download&nbsp;<\\/div><\\/a>'\n\n\tshowmenu(event,code)\n}\n\nfunction adminmenu(event,admin)\n{\n\tvar code = new Array()\n\n\tconfirmclose = 'Do you really want to exit eMule?'\n\tconfirmreboot = 'Do you really want the system to reboot?'\n\tconfirmshutdown = 'Do you really want the system to shutdown?'\n\n\tcode = '<a href=\"javascript:ShowHide(' + \"'\" + 'ed2k_open' + \"'\" + ');\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_ed2klink.gif\" alt=\"eD2K Links\"><img class=\"menuchecked\" src=\"checked_no.gif\">eD2K Links&nbsp;<\\/div><\\/a>'\n\tcode += '<a href=\"?ses=12974&amp;w=logout\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_logout.gif\" alt=\"Logout\"><img class=\"menuchecked\" src=\"checked_no.gif\">Logout&nbsp;<\\/div><\\/a>'\n\n\tif(admin == \"admin\")\n\t{\n\t  code += '<div class=\"menuitems\">&nbsp;<\\/div><\\/a>'\n\t\tcode += '<a href=\"?ses=12974&amp;w=close\" onclick=\"return confirm(confirmclose)\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_close.gif\" alt=\"Shutdown eMule\"><img class=\"menuchecked\" src=\"checked_no.gif\">Shutdown eMule&nbsp;<\\/div><\\/a>'\n\t\tcode += '<a href=\"?ses=12974&amp;w=reboot\" onclick=\"return confirm(confirmreboot)\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_reboot.gif\" alt=\"Reboot system\"><img class=\"menuchecked\" src=\"checked_no.gif\">Reboot system&nbsp;<\\/div><\\/a>'\n\t\tcode += '<a href=\"?ses=12974&amp;w=shutdown\" onclick=\"return confirm(confirmshutdown)\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_shutdown.gif\" alt=\"Shutdown system\"><img class=\"menuchecked\" src=\"checked_no.gif\">Shutdown system&nbsp;<\\/div><\\/a>'\n\t}\n\n\tshowmenu(event,code)\n}\n\nfunction linkmenu(event)\n{\n\tvar code = new Array()\n\n\n\tcode = '<a href=\"https://vcheck.emule-project.net/en/version_check.php?version=1802&language=1033&mod=1\" target=\"_blank\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_version.gif\" alt=\"Version\"><img class=\"menuchecked\" src=\"checked_no.gif\">eMule Version Check&nbsp;<\\/div><\\/a>'\n\tcode += '<a href=\"https://emule-project.net\" target=\"_blank\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_homepage.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">eMule Homepage&nbsp;<\\/div><\\/a>'\n\tcode += '<a href=\"https://forum.emule-project.net\" target=\"_blank\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_forum.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">eMule Forum&nbsp;<\\/div><\\/a>'\n\tcode += '<a href=\"https://www.emule-project.net/home/perl/help.cgi\" target=\"_blank\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_info.gif\"><img class=\"menuchecked\" src=\"checked_no.gif\">eMule Doc,FAQ&nbsp;<\\/div><\\/a>'\n\n\tshowmenu(event,code)\n}\n\nfunction upmenu(event,admin,clientextra,userhash)\n{\n\tvar code = new Array()\n\n\tif(admin == \"admin\")\n\t{\n\t\tif(clientextra == \"friend\")\n\t\t\tcode = '<a href=\"?ses=12974&amp;w=transfer&amp;op=removefriend&amp;userhash=' + userhash + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_friend.gif\" alt=\"Friends\"><img class=\"menuchecked\" src=\"checked.gif\">Friends&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode = '<a href=\"?ses=12974&amp;w=transfer&amp;op=addfriend&amp;userhash=' + userhash + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_friend.gif\" alt=\"Friends\"><img class=\"menuchecked\" src=\"checked_no.gif\">Friends&nbsp;<\\/div><\\/a>'\n\n\t\tshowmenu(event,code)\n\t}\n}\n\nfunction searchmenu(event,ed2k)\n{\n\tvar code = new Array()\n\n\tcode = '<a href=\"' + ed2k + '\"><div class=\"menuitems\"><img class=\"menuimages\" src=\"l_ed2klink.gif\" alt=\"eD2K Links\"><img class=\"menuchecked\" src=\"checked_no.gif\">eD2K Links&nbsp;<\\/div><\\/a>'\n\n\tshowmenu(event,code)\n}\n\nfunction columnmenu(event,tab,menu, m1,e1,m2,e2,m3,e3,m4,e4,m5,e5,m6,e6,m7,e7,m8,e8,m9,e9,m10,e10,m11,e11)\n{\n\tvar code = new Array();\n\tcode = \"\";\n\n\tfor (i=1; i<=11; i++)\n\t{\n\t\ttry\n\t\t{\n\t\t\tvar e = eval('e'+i);\n\t\t\tvar m = eval('m'+i);\n\t\t\tvar j = i - 1;\n\n\t\t\tif(e != \"\") { code += '<a href=\"?ses=12974&amp;w='+tab+'&amp;c='+menu+'&amp;m='+j+'&amp;v=1\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">'+m+'&nbsp;<\\/div><\\/a>' }\n\t\t\telse if(m != \"\") { code += '<a href=\"?ses=12974&amp;w='+tab+'&amp;c='+menu+'&amp;m='+j+'&amp;v=0\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">'+m+'&nbsp;<\\/div><\\/a>' }\n\t\t}\n\t\tcatch(e)\n\t\t{\n\t\t\t// Doesn't exist that variable\n\t\t}\n\t}\n\n\tshowmenu(event,code);\n}\n\nfunction catpriomenu(event,admin,session)\n{\n\tvar code = new Array()\n\n\tif(admin == \"admin\")\n\t{\n\t\tcode = '<a href=\"?ses=' + session + '&amp;w=transfer&amp;c=menuprio&amp;p=low\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Low&nbsp;<\\/div><\\/a>'\n\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;c=menuprio&amp;p=normal\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Normal&nbsp;<\\/div><\\/a>'\n\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;c=menuprio&amp;p=high\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">High&nbsp;<\\/div><\\/a>'\n\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;c=menuprio&amp;p=auto\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Auto&nbsp;<\\/div><\\/a>'\n\n\t\tshowmenu(event,code)\n\t}\n}\n\nfunction serverpriomenu(event,admin,session,ip,port,priority)\n{\n\tvar code = new Array()\n\n\tif(admin == \"admin\")\n\t{\n\t\tif(priority == \"Low\")\n\t\t\tcode = '<a href=\"?ses=' + session + '&amp;w=server&amp;c=priolow&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Low&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode = '<a href=\"?ses=' + session + '&amp;w=server&amp;c=priolow&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Low&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"Normal\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=server&amp;c=prionormal&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Normal&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=server&amp;c=prionormal&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Normal&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"High\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=server&amp;c=priohigh&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">High&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=server&amp;c=priohigh&amp;ip=' + ip + '&amp;port=' + port + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">High&nbsp;<\\/div><\\/a>'\n\n\t\tshowmenu(event,code)\n\t}\n}\n\nfunction downpriomenu(event,admin,session,filehash,priority,downstate)\n{\n\tvar code = new Array()\n\n\tif(downstate == \"complete\" || downstate == \"completing\")\n\t\treturn;\n\n\tif(admin == \"admin\")\n\t{\n\t\tif(priority == \"Low\")\n\t\t\tcode = '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=priolow&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Low&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode = '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=priolow&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Low&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"Normal\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=prionormal&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Normal&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=prionormal&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Normal&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"High\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=priohigh&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">High&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=priohigh&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">High&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"Auto\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=prioauto&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Auto&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=transfer&amp;op=prioauto&amp;file=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Auto&nbsp;<\\/div><\\/a>'\n\n\t\tshowmenu(event,code)\n\t}\n}\n\nfunction sharedpriomenu(event,admin,session,filehash,priority)\n{\n\tvar code = new Array()\n\n\tif(admin == \"admin\")\n\t{\n\t\tif(priority == \"VeryLow\")\n\t\t\tcode = '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=verylow&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Very Low&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode = '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=verylow&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Very Low&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"Low\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=low&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Low&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=low&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Low&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"Normal\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=normal&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Normal&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=normal&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Normal&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"High\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=high&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">High&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=high&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">High&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"Release\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=release&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Release&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=release&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Release&nbsp;<\\/div><\\/a>'\n\t\tif(priority == \"Auto\")\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=auto&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked.gif\">Auto&nbsp;<\\/div><\\/a>'\n\t\telse\n\t\t\tcode += '<a href=\"?ses=' + session + '&amp;w=shared&amp;prio=auto&amp;hash=' + filehash + '\"><div class=\"menuitems\"><img class=\"menuchecked\" src=\"checked_no.gif\">Auto&nbsp;<\\/div><\\/a>'\n\n\t\tshowmenu(event,code)\n\t}\n}\n\nfunction showmenu(e,code,downstate)\n{\n\tif (!document.all&&!document.getElementById&&!document.layers)\n\t\treturn;\n\n\tif(downstate == \"complete\" || downstate == \"completing\")\n\t\treturn;\n\n\tclearhidemenu()\n\n\tmenuobj=ie4? document.all.popmenu : ns6? document.getElementById(\"popmenu\") : ns4? document.popmenu : \"\"\n\tmenuobj.thestyle=(ie4||ns6)? menuobj.style : menuobj\n\n\tif (ie4||ns6)\n\t\tmenuobj.innerHTML=code\n\telse\n\t{\n\t\tmenuobj.document.write('<layer name=gui bgColor=#E6E6E6 onMouseover=\"clearhidemenu()\" onMouseout=\"hidemenu()\">' + code + '<\\/layer>')\n\t\tmenuobj.document.close()\n\t}\n\n\tmenuobj.contentwidth=(ie4||ns6)? menuobj.offsetWidth : menuobj.document.gui.document.width\n\tmenuobj.contentheight=(ie4||ns6)? menuobj.offsetHeight : menuobj.document.gui.document.height\n\teventX=ie4? event.clientX+5 : ns6? e.clientX+5 : e.x+5\n\teventY=ie4? event.clientY : ns6? e.clientY : e.y\n\n\tvar rightedge=ie4? document.body.clientWidth-eventX : window.innerWidth-eventX\n\tvar bottomedge=ie4? document.body.clientHeight-eventY : window.innerHeight-eventY\n\n\tif (rightedge<menuobj.contentwidth)\n\t\tmenuobj.thestyle.left=ie4? document.body.scrollLeft+eventX-menuobj.contentwidth : ns6? window.pageXOffset+eventX-menuobj.contentwidth : eventX-menuobj.contentwidth\n\telse\n\t\tmenuobj.thestyle.left=ie4? document.body.scrollLeft+eventX : ns6? window.pageXOffset+eventX : eventX\n\n\tif (bottomedge>=menuobj.contentheight)\n\t\tmenuobj.thestyle.top=eventY + (ie4? document.body.scrollTop : ns6? window.pageYOffset : 0)\n\telse if (eventY>menuobj.contentheight)\n\t\tmenuobj.thestyle.top=eventY + (ie4? document.body.scrollTop-menuobj.contentheight : ns6? window.pageYOffset-menuobj.contentheight : -menuobj.contentheight)\n\telse\n\t\tmenuobj.thestyle.top=ie4? document.body.scrollTop : ns6? window.pageYOffset : 0\n\n\tmenuobj.thestyle.visibility=\"visible\"\n\n\treturn false\n}\n\nfunction contains_ns6(a, b)\n{\n\tif (b == null)\n\t\treturn false;\n\t//Determines if 1 element in contained in another- by Brainjar.com\n\twhile (b.parentNode)\n\t\tif ((b = b.parentNode) == a)\n\t\t\treturn true;\n\treturn false;\n}\n\nfunction hidemenu()\n{\n\tif (window.menuobj)\n\t\tmenuobj.thestyle.visibility=(ie4||ns6)? \"hidden\" : \"hide\"\n}\n\nfunction dynamichide(e)\n{\n\tif (ie4&&!menuobj.contains(e.toElement))\n\t\thidemenu()\n\telse if (ns6&&e.currentTarget!= e.relatedTarget&& !contains_ns6(e.currentTarget, e.relatedTarget))\n\t\thidemenu()\n}\n\nfunction delayhidemenu()\n{\n\tif (ie4||ns6||ns4)\n\t\tdelayhide=setTimeout(\"hidemenu()\",500)\n}\n\nfunction clearhidemenu()\n{\n\tif (window.delayhide)\n\t\tclearTimeout(delayhide)\n}\n\nfunction highlightmenu(e,state)\n{\n\tif (document.all)\n\t\tsource_el=event.srcElement\n\telse if (document.getElementById)\n\t\tsource_el=e.target\n\n\tif (source_el.className==\"menuitems\")\n\t{\n\t\tsource_el.id=(state==\"on\")? \"mouseoverstyle\" : \"\"\n\t}\n\telse\n\t{\n\t\twhile(source_el.id!=\"popmenu\")\n\t\t{\n\t\t\tsource_el=document.getElementById? source_el.parentNode : source_el.parentElement\n\t\t\tif (source_el.className==\"menuitems\")\n\t\t\t{\n\t\t\t\tsource_el.id=(state==\"on\")? \"mouseoverstyle\" : \"\"\n\t\t\t}\n\t\t}\n\t}\n}\n\nif (ie4||ns6)\n\tdocument.onclick=hidemenu\n\nfunction ToClipboard(txt)\n{\n\tif(window.clipboardData) {\n\t\twindow.clipboardData.clearData();\n\t\twindow.clipboardData.setData(\"Text\", txt);\n\t} else if(navigator.userAgent.indexOf(\"Opera\")!=-1)\n\t\twindow.location=txt;\n\telse if (window.netscape) {\n\t\ttry {\n\t\t\tnetscape.security.PrivilegeManager.enablePrivilege(\"UniversalXPConnect\");\n\t\t} catch (e) {\n\t\t\talert(\"Permission denied! Browse to 'about:config' in your browser\\nand set 'signed.applets.codebase_principal_support' to true\");\n\t\t}\n\t\tvar clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);\n\t\tif (!clip)\n\t\t\treturn;\n\t\tvar trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);\n\t\tif (!trans)\n\t\t\treturn;\n\t\ttrans.addDataFlavor('text/unicode');\n\t\tvar str = new Object();\n\t\tvar len = new Object();\n\t\tvar str = Components.classes[\"@mozilla.org/supports-string;1\"].createInstance(Components.interfaces.nsISupportsString);\n\t\tvar copytext=txt;\n\t\tstr.data=copytext;\n\t\ttrans.setTransferData(\"text/unicode\",str,copytext.length*2);\n\t\tvar clipid=Components.interfaces.nsIClipboard;\n\t\tif (!clip)\n\t\t\treturn false;\n\t\tclip.setData(trans,null,clipid.kGlobalClipboard);\n\t}\n}\nvar timeoutID;\nvar timeout = 0;\n\nfunction RefreshPage()\n{\n    location.href = \"?ses=12974&amp;w=search&amp;cat=&amp;dummy=27383\";\n}\n\nfunction ToggleTimer()\n{\n    if (timeoutID)\n    {\n        clearTimeout(timeoutID);\n        timeoutID = null;\n        document.images['ImgToggleTimer'].src = 'l_timer_off.gif';\n    }\n    else\n    {\n        SetTimer();\n        if (timeoutID)\n\t        document.images['ImgToggleTimer'].src = 'l_timer.gif';\n\t\telse\n\t        document.images['ImgToggleTimer'].src = 'l_timer_off.gif';\n    }\n}\n\nfunction SetTimer()\n{\n    if (timeout != 0)\n        timeoutID = setTimeout(\"RefreshPage()\", timeout);\n}\n\nif (document.all||document.getElementById)\n    SetTimer();\nelse\n    window.onload=SetTimer;\n//-->\n</script>
+   \n\n
+</head>\n
+
+<body background=\"main_bg.gif\" text=white link=\"#2184B5\" vlink=\"#2184B5\" alink=\"#2184B5\" marginwidth=0
+   marginheight=0 topmargin=0 leftmargin=0 style=\"margin:0px\">\n <div id=\"popmenu\" class=\"menuskin\"
+      onMouseover=\"clearhidemenu();highlightmenu(event,'on')\"
+      onMouseout=\"highlightmenu(event,'off');dynamichide(event)\"></div>\n <table border=\"0\" cellpadding=\"4\"
+      cellspacing=\"0\" width=\"100%\" background=\"main_menubg.gif\" class=\"tabs_three\">\n <tr>\n <td width=\"5\">
+            &nbsp;</td>\n <td width=\"95\" nowrap>\n <a href=\"#\" onMouseover=\"linkmenu(event)\"
+               onMouseout=\"delayhidemenu()\"><img src=\"h_emule.gif\" alt=\"eMule | Web Interface\"><br>\n\t\t\tWeb
+               Interface</a>\n </td>\n <td width=\"5\">&nbsp;</td>\n <td width=\"9%\" align=\"center\" valign=\"top\">
+            <br>\n\t<a href=\"?ses=12974&amp;w=transfer\">\n\t\t\t<img src=\"h_transfer.gif\"><br>\n\t\t\tTransfer\n
+            </a>\n
+         </td>\n <td width=\"9%\" align=\"center\" valign=\"top\"><br>\n\t<a href=\"?ses=12974&amp;w=kad\">\n\t\t\t<img
+                  src=\"h_kad.gif\"><br>\n\t\t\tKad\n\t</a>\n </td>\n <td width=\"9%\" align=\"center\" valign=\"top\">
+            <br>\n\t<a href=\"?ses=12974&amp;w=server\">\n\t\t\t<img src=\"h_server.gif\"><br>\n\t\t\tServers\n\t</a>\n
+         </td>\n <td width=\"9%\" align=\"center\" valign=\"top\"><br>\n\t<a
+               href=\"?ses=12974&amp;w=search\">\n\t\t\t<img src=\"h_search.gif\"><br>\n\t\t\tSearch\n\t</a>\n </td>\n
+         <td width=\"9%\" align=\"center\" valign=\"top\"><br>\n\t<a href=\"?ses=12974&amp;w=shared\">\n\t\t\t<img
+                  src=\"h_shared.gif\"><br>\n\t\t\tShared Files\n\t</a>\n </td>\n <td width=\"9%\" align=\"center\"
+            valign=\"top\"><br>\n\t<a href=\"?ses=12974&amp;w=stats\">\n\t\t\t<img
+                  src=\"h_statistic.gif\"><br>\n\t\t\tStatistics\n\t</a>\n </td>\n <td width=\"9%\" align=\"center\"
+            valign=\"top\"><br>\n <a href=\"?ses=12974&amp;w=graphs\">\n\t\t\t<img
+                  src=\"h_graph.gif\"><br>\n\t\t\tGraphs\n </a>\n </td>\n <td width=\"9%\" align=\"center\"
+            valign=\"top\"><br>\n\t<a href=\"?ses=12974&amp;w=options\">\n\t\t\t<img
+                  src=\"h_preferences.gif\"><br>\n\t\t\tOptions\n\t</a>\n </td>\n\n <td width=\"20\">&nbsp;</td>\n\n <td
+            width=\"9%\" align=\"center\" valign=\"top\"><br>\n\t<a href=\"javascript:void(0)\"
+               onMouseover=\"adminmenu(event,'admin')\" onMouseout=\"delayhidemenu()\"><img src=\"l_options.gif\"
+                  align=\"middle\"><br>Admin Menu</a>\n </td>\n\n <td>&nbsp;</td>\n <td width=\"100\" nowrap>\n\t<img
+               src=\"l_info.gif\" align=\"middle\"><a href=\"?ses=12974&amp;w=myinfo\">&nbsp;&nbsp;My
+               Info</a><br>\n\t<img src=\"h_log.gif\" align=\"middle\"><a
+               href=\"?ses=12974&amp;w=log#end\">&nbsp;&nbsp;Log</a><br>\n\t<img src=\"h_log.gif\" align=\"middle\"><a
+               href=\"?ses=12974&amp;w=sinfo#end\">&nbsp;&nbsp;Server Info</a><br>\n\t<img src=\"h_log.gif\"
+               align=\"middle\"><a href=\"?ses=12974&amp;w=debuglog#end\">&nbsp;&nbsp;Debug Log</a>\n </td>\n </tr>\n
+   </table>\n\n<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" width=\"100%\" height=\"64\">\n <tr>\n <td
+            background=\"main_topbardarker.gif\">\n <table class=\"tabs_four\" border=\"0\" cellpadding=\"0\"
+               cellspacing=\"0\" width=\"100%\">\n <tr>
+                  <td rowspan=\"2\">&nbsp;</td>\n <td nowrap height=\"25\"><b>Connection:</b></td>
+               </tr>\n <tr>
+                  <td nowrap height=\"25\"><b>Status:</b></td>
+               </tr>\n </table>\n </td>\n <td background=\"main_topbarseparator.gif\" width=\"7\">&nbsp;</td>\n\n <td
+            background=\"main_topbar.gif\">\n <table class=\"tabs_four\" border=\"0\" cellpadding=\"1\"
+               cellspacing=\"0\" width=\"100%\">\n <tr>\n <td><img src=\"high.gif\" align=\"left\"> GrupoTS Server (<a
+                        href=\"?ses=12974&amp;w=server&amp;c=disconnect\">Disconnect</a>) &nbsp;&nbsp;(<img
+                        src=\"l_users.gif\" align=\"middle\"> 5.77 k&nbsp;&nbsp;<img src=\"filetype_other.gif\"
+                        align=\"middle\"> 2.51 M)</td>\n <td width=\"25%\" nowrap><img src=\"h_kad.gif\" width=\"16\"
+                        height=\"16\" align=\"left\"> Connected (<a
+                        href=\"?ses=12974&amp;w=kad&amp;c=disconnect\">Disconnect</a>)</td>\n <td width=\"1%\"></td>\n
+                  <td width=\"14%\" nowrap><img src=\"l_calendar.gif\" align=\"middle\">\n
+                     <script
+                        language=\"javascript\">\n       <!--\n        var d = new Date();\n        s = (d.getDate() < 10 ? \"0\" : \"\") + d.getDate() + \".\" + ((d.getMonth() + 1) < 10 ? \"0\" : \"\") + (d.getMonth() + 1) + \".\" + d.getFullYear()\n          + '<td width=\"14%\" nowrap><img src=\"l_clock.gif\" align=\"middle\"> ' + d.getHours() + \":\" + (d.getMinutes() < 10 ? \"0\" : \"\") + d.getMinutes() + \":\" + (d.getSeconds() < 10 ? \"0\" : \"\") + d.getSeconds() + \"<\\/td>\";\n        document.write(s);\n       //-->\n      </script>
+                     \n
+                  </td>\n <td></td>\n\n <td width=\"17\" align=\"right\">\n
+                     <script
+                        language=\"javascript\">\n\t   <!--\n\t    if (timeoutID && timeout != 0)\n\t      document.write('<img id=\"ImgToggleTimer\" class=\"link\" align=\"middle\" src=\"l_timer.gif\" onclick=\"ToggleTimer();\">');\n\t    else\n\t      document.write('<img id=\"ImgToggleTimer\" class=\"link\" align=\"middle\" src=\"l_timer_off.gif\" onclick=\"ToggleTimer();\">');\n\t   //-->\n      </script>
+                     \n
+                  </td>\n\n
+               </tr>\n </table>\n <table class=\"tabs_four\" border=\"0\" cellpadding=\"1\" cellspacing=\"0\"
+               width=\"100%\">\n <tr>\n\t <td style=\"font-size:8pt\">\n\t <img src=\"arrow_down.gif\" align=\"left\"
+                        hspace=\"3\" vspace=\"4\"> Download: 0.0 (22000)\n\t <table width=\"125\" border=1
+                        class=\"percent_table\" cellpadding=0 cellspacing=0 bordercolor=\"#005784\" bgcolor=\"#99CCFF\">
+                        <tr>
+                           <td><img src=\"qs_down.jpg\" width=\"0%\" height=\"8\"></td>
+                        </tr>
+                     </table>\n\t </td>\n\t <td style=\"font-size:8pt\">\n\t <img src=\"arrow_up.gif\" align=\"left\"
+                        hspace=\"3\" vspace=\"4\"> Upload: 13536.8 (39592)\n\t <table width=\"125\" border=1
+                        class=\"percent_table\" cellpadding=0 cellspacing=0 bordercolor=\"#005784\" bgcolor=\"#99CCFF\">
+                        <tr>
+                           <td><img src=\"qs_up.jpg\" width=\"34%\" height=\"8\"></td>
+                        </tr>
+                     </table>\n\t </td>\n\t <td style=\"font-size:8pt\">\n\t <img src=\"l_con.gif\" align=\"left\"
+                        hspace=\"3\" vspace=\"4\"> Active connections: 41.0 (5500)\n\t <table width=\"125\" border=1
+                        class=\"percent_table\" cellpadding=0 cellspacing=0 bordercolor=\"#005784\" bgcolor=\"#99CCFF\">
+                        <tr>
+                           <td><img src=\"qs_con.jpg\" width=\"1%\" height=\"8\"></td>
+                        </tr>
+                     </table>\n\t </td>\n\t <td style=\"font-size:8pt\">\n\t <img src=\"l_users.gif\" align=\"left\"
+                        hspace=\"3\" vspace=\"4\"> Users: 5.77 k (25.00 k)\n\t <table width=\"125\" border=1
+                        class=\"percent_table\" cellpadding=0 cellspacing=0 bordercolor=\"#005784\" bgcolor=\"#99CCFF\">
+                        <tr>
+                           <td><img src=\"qs_user.jpg\" width=\"23%\" height=\"8\"></td>
+                        </tr>
+                     </table>\n\t </td>\n\t <td></td>\n </tr>\n </table>\n\n </td>\n </tr>\n</table>\n\n
+   <script
+      language=\"javascript\">\n<!--\n/*************************************************************************\n\tdw_tooltip.js\n\tversion date: Nov 2003\n\trequires: dw_event.js and dw_viewport.js\n\n\tThis code is from Dynamic Web Coding at http://www.dyn-web.com/\n\tCopyright 2003 by Sharon Paine\n\tSee Terms of Use at http://www.dyn-web.com/bus/terms.html\n\tregarding conditions under which you may use this code.\n\tThis notice must be retained in the code as is!\n*************************************************************************/\n\nvar Tooltip  
+         {
+         \n\tfollowMouse: true, \n\toffX: 8, \n\toffY: 12, \n\n\tready: false, \n\tt1: null, \n\tt2: null, \n\ttipID: \"tipDiv\",\n\ttip:null,\n\n\tinit: function() {\n\t\tif ( document.createElement && document.body && typeof document.body.appendChild != \"undefined\" ) {\n\t\t\tvar el = document.createElement(\"DIV\");\n\t\t\tel.className = \"tooltip\";\n\t\t\tel.id = this.tipID;\n\t\t\tdocument.body.appendChild(el);\n\t\t\tthis.ready = true;\n\t\t}\n\t},\n\n\tshow: function(e, msg) {\n\t\tif (this.t1) clearTimeout(this.t1);\n\t\tif (this.t2) clearTimeout(this.t2);\n\t\tthis.tip = document.getElementById( this.tipID );\n\t\t// set up mousemove\n\t\tif (this.followMouse)\n\t\t\tdw_event.add( document, \"mousemove\", this.trackMouse, true );\n\t\tthis.writeTip(\"\");  // for mac ie\n\t\tthis.writeTip(msg);\n\t\tviewport.getAll();\n\t\tthis.positionTip(e);\n\t\tthis.t1 = setTimeout(\"document.getElementById('\" + Tooltip.tipID + \"').style.visibility = 'visible'\",200);\n\t},\n\n\twriteTip: function(msg) {\n\t\tif ( this.tip && typeof this.tip.innerHTML != \"undefined\" ) this.tip.innerHTML = msg;\n\t},\n\n\tpositionTip: function(e) {\n\t\tvar x = e.pageX? e.pageX: e.clientX + viewport.scrollX;\n\t\tvar y = e.pageY? e.pageY: e.clientY + viewport.scrollY;\n\n\t\tif ( x + this.tip.offsetWidth + this.offX > viewport.width + viewport.scrollX )\n\t\t\tx = x - this.tip.offsetWidth - this.offX;\n\t\telse\n\t\t\tx = x + this.offX;\n\t\tif ( y + this.tip.offsetHeight + this.offY > viewport.height + viewport.scrollY )\n\t\t\ty = ( y - this.tip.offsetHeight - this.offY > viewport.scrollY )? y - this.tip.offsetHeight - this.offY : viewport.height + viewport.scrollY - this.tip.offsetHeight;\n\t\telse\n\t\t\ty = y + this.offY;\n\t\tthis.tip.style.left = x + \"px\"; this.tip.style.top = y + \"px\";\n\t},\n\n\thide: function() {\n\t\tif (this.t1) clearTimeout(this.t1);\n\t\tif (this.t2) clearTimeout(this.t2);\n\t\t\tthis.t2 = setTimeout(\"document.getElementById('\" + this.tipID + \"').style.visibility = 'hidden'\",200);\n\t\t// release mousemove\n\t\tif (this.followMouse)\n\t\t\tdw_event.remove( document, \"mousemove\", this.trackMouse, true );\n\t\tthis.tip = null;\n\t},\n\n\ttrackMouse: function(e) {\n\t\te = dw_event.DOMit(e);\n\t\tTooltip.positionTip(e);\n\t}\n}\n\nTooltip.init();\n\n/*************************************************************************\n\tdw_event.js (version date Feb 2004)\n*************************************************************************/\nvar dw_event = {\n\tadd: function(obj, etype, fp, cap) {\n\t\tcap = cap || false;\n\t\tif (obj.addEventListener) obj.addEventListener(etype, fp, cap);\n\t\telse if (obj.attachEvent) obj.attachEvent(\"on\" + etype, fp);\n\t},\n\n\tremove: function(obj, etype, fp, cap) {\n\t\tcap = cap || false;\n\t\tif (obj.removeEventListener) obj.removeEventListener(etype, fp, cap);\n\t\telse if (obj.detachEvent) obj.detachEvent(\"on\" + etype, fp);\n\t},\n\n\tDOMit: function(e) {\n\t\te = e? e: window.event;\n\t\te.tgt = e.srcElement? e.srcElement: e.target;\n\n\t\tif (!e.preventDefault) e.preventDefault = function () { return false; }\n\t\tif (!e.stopPropagation) e.stopPropagation = function () { if (window.event) window.event.cancelBubble = true; }\n\n\t\treturn e;\n\t}\n}\n/*************************************************************************\n\tdw_viewport.js (version date Nov 2003)\n*************************************************************************/\nviewport = {\n\tgetWinWidth: function () {\n\t\tthis.width = 0;\n\t\tif (window.innerWidth)\n\t\t\tthis.width = window.innerWidth - 18;\n\t\telse if (document.documentElement && document.documentElement.clientWidth)\n\t\t\tthis.width = document.documentElement.clientWidth;\n\t\telse if (document.body && document.body.clientWidth)\n\t\t\tthis.width = document.body.clientWidth;\n\t},\n\n\tgetWinHeight: function () {\n\t\tthis.height = 0;\n\t\tif (window.innerHeight)\n\t\t\tthis.height = window.innerHeight - 18;\n\t\telse if (document.documentElement && document.documentElement.clientHeight)\n\t\t\tthis.height = document.documentElement.clientHeight;\n\t\telse if (document.body && document.body.clientHeight)\n\t\t\tthis.height = document.body.clientHeight;\n\t},\n\n\tgetScrollX: function () {\n\t\tthis.scrollX = 0;\n\t\tif (typeof window.pageXOffset == \"number\")\n\t\t\tthis.scrollX = window.pageXOffset;\n\t\telse if (document.documentElement && document.documentElement.scrollLeft)\n\t\t\tthis.scrollX = document.documentElement.scrollLeft;\n\t\telse if (document.body && document.body.scrollLeft)\n\t\t\tthis.scrollX = document.body.scrollLeft;\n\t\telse if (window.scrollX) this.scrollX = window.scrollX;\n\t},\n\n\tgetScrollY: function () {\n\t\tthis.scrollY = 0;\n\t\tif (typeof window.pageYOffset == \"number\")\n\t\t\tthis.scrollY = window.pageYOffset;\n\t\telse if (document.documentElement && document.documentElement.scrollTop)\n\t\t\tthis.scrollY = document.documentElement.scrollTop;\n\t\telse if (document.body && document.body.scrollTop)\n\t\t\tthis.scrollY = document.body.scrollTop;\n\t\telse if (window.scrollY)\n\t\t\tthis.scrollY = window.scrollY;\n\t},\n\n\tgetAll: function () {\n\t\tthis.getWinWidth();\n\t\tthis.getWinHeight();\n\t\tthis.getScrollX();\n\t\tthis.getScrollY();\n\t}\n}\n//-->\n</script>
+   \n\n
+   <script
+      language=\"javascript\">\n/*************************************************************************\n\tThis code is from Dynamic Web Coding at http://www.dyn-web.com/\n\tCopyright 2003 by Sharon Paine\n\tSee Terms of Use at http://www.dyn-web.com/bus/terms.html\n\tregarding conditions under which you may use this code.\n\tThis notice must be retained in the code as is!\n*************************************************************************/\nfunction doTooltip(e, msg) {
+                                    \n\tif(typeof Tooltip != \"undefined\" && Tooltip.ready )\n\t\tTooltip.show(e, msg);\n}\n\nfunction hideTip() {\n\tif ( typeof Tooltip != \"undefined\" && Tooltip.ready )\n\t\tTooltip.hide();\n}\n</script>
+   \n\n
+   <script
+      language=\"javascript\">\n<!--\nfunction ShowHide(id)\n{\n\tvar itm = null;\n\tif (document.getElementById) {\n\t\titm = document.getElementById(id);\n\t} else if (document.all) {\n\t\titm = document.all[id];\n\t} else if (document.layers) {\n\t\titm = document.layers[id];\n\t}\n\n\tif (!itm) {\n\t\t// do nothing\n\t} else if (itm.style) {\n\t\tif (itm.style.display == \"none\") {\n\t\t\titm.style.display = \"\";\n\t\t} else {\n\t\t\titm.style.display = \"none\";\n\t\t}\n\t} else {\n\t\titm.visibility = \"show\";\n\t}\n}\n//-->\n</script>
+   \n\n<div id=ed2k_open style=\"DISPLAY:none; Z-INDEX:2\">\n<table align=center border=0 cellpadding=4 cellspacing=0
+         width=\"80%\">\n <tr>\n <td align=center class=\"shared-header\" style=\"background-color:#000000\">\n <p>
+                  <font face=\"Tahoma\" style=\"font-size:8pt;\"><b>eD2K Links</b></font>
+               </p>\n </td>\n </tr>\n <tr>\n <td align=center valign=top class=tabs>\n <br>\n <form action=\"\"
+                  method=\"GET\">\n <input type=\"hidden\" name=\"ses\" value=\"12974\">\n <input type=\"hidden\"
+                     name=\"w\" value=\"transfer\">\n <textarea name=\"ed2k\" cols=\"94\" rows=\"7\"
+                     class=\"dinput\"></textarea>\n <br><br><input type=\"submit\" value=\"Start\">
+                  <form action=\"\">&nbsp;&nbsp;&nbsp;<img src=\"l_catarrow.gif\"
+                        align=\"top\">&nbsp;&nbsp;&nbsp;<select name=\"cat\" size=\"1\">
+                        <option selected value=\"0\">All</option>\n<option value=\"1\">almacen01</option>\n<option
+                           value=\"2\">almacen02</option>\n<option value=\"3\">almacen03</option>\n<option value=\"4\">
+                           almacen04</option>\n
+                     </select></form>\n
+               </form>\n <br><br>\n </td>\n </tr>\n</table>\n</div>
+   <script
+      language=\"JavaScript\">\nfunction obj(menu) { \n\treturn(navigator.appName == \"Microsoft Internet Explorer\")?this[menu]:document.getElementById(menu);\n}\nfunction searchange1() {\n\tobj(\"search\").style.display=\"\";\n\tobj(\"searchtag\").style.background=\"#005784\";\n\tobj(\"contentdb\").style.display=\"none\";\n\tobj(\"contentdbtag\").style.background=\"#000000\";\n}\nfunction searchange2() {\n\tobj(\"search\").style.display=\"none\";\n\tobj(\"searchtag\").style.background=\"#000000\";\n\tobj(\"contentdb\").style.display=\"\";\n\tobj(\"contentdbtag\").style.background=\"#005784\";\n}\n</script>
+   \n\n\n<table border=0 cellpadding=4 cellspacing=0 align=center width=\"95%\">\n <tr>\n <td align=center
+            valign=middle>\n <br>\n <table border=0 cellpadding=4 cellspacing=0 width=\"100%\">\n <tr>\n <td
+                     class=\"search-main\" ID=\"searchtag\" align=\"center\" style=\"background:#005784\" nowrap><img
+                        src=\"l_search.gif\" align=\"middle\">&nbsp;<b><a
+                           href=\"javascript:searchange1()\">Search</a></b>&nbsp;</td>\n <td class=\"search-main\"
+                     ID=\"contentdbtag\" align=\"center\" nowrap><img src=\"l_contentdb.gif\"
+                        align=\"middle\">&nbsp;<b><a href=\"javascript:searchange2()\">ContentDB Search</a></b>&nbsp;
+                  </td>\n <td class=\"search-main\" align=\"right\" nowrap><img src=\"l_ed2klink.gif\"
+                        align=\"middle\">&nbsp;<b><a href=\"javascript:ShowHide('ed2k_open');\">eD2K Links</a></b>&nbsp;
+                  </td> \n <td class=\"search-main\" width=\"100%\">&nbsp;</td>\n </tr>\n <tr>\n <td
+                     class=\"search-line\" colspan=\"5\">\n <form ID=\"search\" action=\"\" method=\"GET\"
+                        style=\"display:\">\n <table border=0 cellpadding=4 cellspacing=0 align=\"left\">\n <tr>\n <td
+                                 class=\"tabs\" width=150>Name</td>\n <td><input name=\"tosearch\" type=\"text\"
+                                    size=\"30\"></td>\n \t</tr>\n \t<tr>\n <td class=\"tabs\">Type</td>\n <td>\n <select
+                                    name=\"type\">\n <option value=\"\">Any</option>\n <option value=\"Arc\">Archive
+                                       (.zip .rar .ace ...)</option>\n <option value=\"Audio\">Audio (.mp3 .ogg .wav
+                                       ...)</option>\n <option value=\"Iso\">CD-Image (.iso .bin .nrg ...)</option>\n
+                                    <option value=\"Doc\">Document (.doc .txt .pdf ...)</option>\n <option
+                                       value=\"Image\">Picture (.jpg .gif .png ...)</option>\n <option value=\"Pro\">
+                                       Program (.exe .zip .rar ...)</option>\n <option value=\"Video\">Video (.avi .mpg
+                                       .ogm ...)</option>\n <option value=\"EmuleCollection\">Collection
+                                       (.emulecollection)</option>\n
+                                 </select>\n </td>\n </tr>\n <tr>\n <td class=tabs>
+                                 Min. Size MB</td>\n <td><input name=\"min\" type=\"text\" size=\"10\"></td>\n </tr>\n
+                           <tr>\n <td class=tabs>Max. Size MB</td>\n <td><input name=\"max\" type=\"text\" size=\"10\">
+                              </td>\n </tr>\n <tr>\n <td class=tabs>Availability</td>\n <td><input name=\"avail\"
+                                    type=\"text\" size=\"10\"></td>\n </tr>\n <tr>\n <td class=tabs>Extension</td>\n
+                              <td><input name=\"ext\" type=\"text\" size=\"10\"></td>\n
+                           </tr>\n <tr>\n <td class=tabs>
+                                 Method</td>\n \t <td class=\"tabs\">\n <input value=\"server\" type=\"radio\"
+                                    name=\"method\" checked>Server<br>\n <input value=\"global\" type=\"radio\"
+                                    name=\"method\">Global (Servers)<br>\n <input value=\"kademlia\" type=\"radio\"
+                                    name=\"method\">Kad\n </td> \n \t</tr>\n <tr>\n <td></td>\n <td valign=\"bottom\"
+                                 height=\"40\">\n <input type=\"hidden\" name=\"ses\" value=\"12974\">\n <input
+                                    type=\"hidden\" name=\"w\" value=\"search\">\n <input type=\"submit\"
+                                    value=\"Search\">\n </td>\n <td>&nbsp;</td>\n </tr>\n
+                        </table>\n </form>\n <form ID=\"contentdb\"
+                        action=\"https://contentdb.emule-project.net/search.php?\" method=\"get\" target=\"_blank\"
+                        style=\"display:none;\">\n <table border=0 cellpadding=4 cellspacing=0 align=\"left\">\n <tr>\n
+                              <td class=\"tabs\" width=150>Name</td>\n <td><input name=\"s\" type=\"text\" size=\"30\">
+                              </td>\n </tr>\n <tr>\n <td class=\"tabs\">Type</td>\n <td>
+                                 \n <select name=\"cat\">\n <option value=\"all\">Any</option>\n <option value=\"1\">
+                                       Software</option>\n <option value=\"2\">Music</option>\n <option value=\"3\">
+                                       Movies</option>\n <option value=\"4\">Games</option>\n <option value=\"5\">
+                                       Miscellaneous items</option>\n </select>\n </td>\n </tr>\n <tr>\n <td
+                                 height=\"40\" valign=\"bottom\">\n <input type=\"hidden\" name=ses value=\"12974\">\n
+                                 <input type=\"hidden\" name=qsource value=\"webinterface\">\n <input type=\"submit\"
+                                    value=\"Search\">\n
+                              </td>\n <td>&nbsp;</td>\n </tr>\n </table>\n </form>\n </td>\n
+               </tr>\n </table>\n <br>\n <form action=\"\" method=\"GET\">\n <input type=\"hidden\" name=\"ses\"
+                  value=\"12974\">\n <input type=\"hidden\" name=\"w\" value=\"search\">\n <table border=0 cellpadding=4
+                  cellspacing=0 width=\"100%\">\n <tr>\n <td colspan=\"6\" class=\"search-main\"><img
+                           src=\"l_filesearch.gif\" align=\"middle\">&nbsp;<b><a href=\"#\"
+                              onMouseover=\"columnmenu(event,'search','menu','File Name','File Name','Size','Size','File
+                              Hash','File Hash','Sources','Sources','','','','','','','','','','','','','','')\"
+                              onMouseout=\"delayhidemenu()\">Search Results</a>&nbsp;&nbsp;&nbsp;<a
+                              href=\"?ses=12974&amp;w=search\">
+                              <font color=\"#FFC412\">(Refetch Results)</font>
+                           </a></b></td>\n </tr>\n <tr>\n <td class=\"search-header-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-header\">
+                           <tr>
+                              <td width=\"16\"><a href=\"?ses=12974&amp;w=search&amp;sort=3&amp;sortAsc=1\">&times;</a>
+                              </td>
+                              <td>&nbsp;</td>
+                              <td width=\"16\"><a href=\"?ses=12974&amp;w=search&amp;sort=5&amp;sortAsc=1\">&times;</a>
+                              </td>
+                              <td>&nbsp;</td>
+                              <td align=\"left\"><b><a href=\"?ses=12974&amp;w=search&amp;sort=0&amp;sortAsc=1\">File
+                                       Name</a></b></td>
+                           </tr>
+                        </table>
+                     </td>\n <td class=\"search-header-right\" style=\"font-size:7.5pt\"><b><a
+                              href=\"?ses=12974&amp;w=search&amp;sort=1&amp;sortAsc=1\">Size</a></b></td>\n <td
+                        class=\"search-header\" style=\"font-size:7.5pt\"><b><a
+                              href=\"?ses=12974&amp;w=search&amp;sort=2&amp;sortAsc=1\">File Hash</a></b></td>\n <td
+                        class=\"search-header\" style=\"font-size:7.5pt\"><b><a
+                              href=\"?ses=12974&amp;w=search&amp;sort=3&amp;sortAsc=1\">Sources&nbsp;<img
+                                 src=\"l_downarrow.gif\" align=\"middle\"></a></b></td>\n <td class=\"search-header\">
+                        &nbsp;</td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_25.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.(2012).(Spanish.English.Subs).HDrip.XviD-AC3.by.clavi.avi|2002352128|FE086FD6AFDBC2388C17DB69B1DA369E|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd.(2012).(Spanish.English.Subs).HDrip.XviD-AC3.by.clavi.avi
+                                 </font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.86 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">FE086FD6AFDBC2388C17DB69B1DA369E</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">25(23)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"FE086FD6AFDBC2388C17DB69B1DA369E\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_10.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd
+                                    (2012).mkv|2410442726|030C0E36093BCD6F2BD1F1EA7553DD75|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">2.24 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">030C0E36093BCD6F2BD1F1EA7553DD75</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">21(21)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"030C0E36093BCD6F2BD1F1EA7553DD75\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_10.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (2012) HD1080p x264-DTS-AC3
+                                    (ESP-ENG+Subs).mkv|4407566243|A5DD6A309792D8208B416E4B80DF8530|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012) HD1080p x264-DTS-AC3 (ESP-ENG+Subs).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">4.10 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">A5DD6A309792D8208B416E4B80DF8530</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">14(14)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"A5DD6A309792D8208B416E4B80DF8530\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_5.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.-.Il.Giudice.Dell.Apocalisse.2012.ITA.ENG.BDRip.DD5.1.x264-UBi.mkv|1734254481|467561DF78A90B6DF4D06B0737B79784|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">
+                                    Dredd.-.Il.Giudice.Dell.Apocalisse.2012.ITA.ENG.BDRip.DD5.1.x2...-UBi.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.62 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">467561DF78A90B6DF4D06B0737B79784</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">7(7)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"467561DF78A90B6DF4D06B0737B79784\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_5.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.il.Giudice.dell.Apocalisse.2012.BluRay.1080p.AC3.iTA.ENG.Subs.x264-BJL.mkv|11410058501|861CB1B484A58F6182F9A6A5E1AFF5A4|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">
+                                    Dredd.il.Giudice.dell.Apocalisse.2012.BluRay.1080p.AC3.iTA.ENG...-BJL.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">10.63 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">861CB1B484A58F6182F9A6A5E1AFF5A4</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">5(4)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"861CB1B484A58F6182F9A6A5E1AFF5A4\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (Dreed)
+                                    (2012.Lionsgate+...EspaÃ±ol-InglÃ©s+Subs.BDrip.H264-Ac3.3.2).mkv|1351578242|9E9365DE8A6A8FFB7CFED3B9DC9D0EBC|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (Dreed)
+                                    (2012.Lionsgate+...EspaÃ±ol-InglÃ©s+Subs.BDrip.H...3.2).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.26 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">9E9365DE8A6A8FFB7CFED3B9DC9D0EBC</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">4(4)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"9E9365DE8A6A8FFB7CFED3B9DC9D0EBC\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.2012.576p.BDRip.XviD-Rogue.[sharethefiles.com].avi|2344908800|220E2D170FBD0F93EEC236C38007915C|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd.2012.576p.BDRip.XviD-Rogue.[sharethefiles.com].avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">2.18 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">220E2D170FBD0F93EEC236C38007915C</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">4(4)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"220E2D170FBD0F93EEC236C38007915C\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - 2012 -
+                                    Fr.avi|732999338|8AF14F262BF7F93A829DA73F29681F2A|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - 2012 - Fr.avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">699.04 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">8AF14F262BF7F93A829DA73F29681F2A</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">4(4)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"8AF14F262BF7F93A829DA73F29681F2A\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd 2012 French 720P Bluray x264
+                                    Ac3-Tmb.mkv|4610027842|1923295ADCA6257C3285CBEBD91741EB|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd 2012 French 720P Bluray x264 Ac3-Tmb.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">4.29 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1923295ADCA6257C3285CBEBD91741EB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2(2)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"1923295ADCA6257C3285CBEBD91741EB\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.(2012).(Spanish.English.Spanishsub.Englishsub).BDrip.1080p.HDR.HEVC.10b-AC3.by.nara.mkv|1793337319|103A6DCCF8158741C729A35149B482AF|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">
+                                    Dredd.(2012).(Spanish.English.Spanishsub.Englishsub).BDrip.108...nara.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.67 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">103A6DCCF8158741C729A35149B482AF</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2(2)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"103A6DCCF8158741C729A35149B482AF\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.2012.Pete Travis.by
+                                    Juggernaut.avi|1860861952|856DA1312BC3C2E4C977AC4AA100D24C|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd.2012.Pete Travis.by Juggernaut.avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.73 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">856DA1312BC3C2E4C977AC4AA100D24C</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"856DA1312BC3C2E4C977AC4AA100D24C\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd
+                                    2012.mp4|1611435849|B71DAB27FA61BD0D2911CC67FD5EE900|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd 2012.mp4</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.50 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">B71DAB27FA61BD0D2911CC67FD5EE900</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2(2)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"B71DAB27FA61BD0D2911CC67FD5EE900\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd 2012 1080p FR EN X264
+                                    AC3-mHDgz.mkv|2739348511|019C7710DAD13FBEC620EC91792AE1C7|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd 2012 1080p FR EN X264 AC3-mHDgz.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">2.55 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">019C7710DAD13FBEC620EC91792AE1C7</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2(2)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"019C7710DAD13FBEC620EC91792AE1C7\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.2012.4K.HDR.2160p.BDRip Ita Eng
+                                    x265-NAHOM.mkv|10695272026|45343F22B097F8AFC1EC5BB0D7F93588|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd.2012.4K.HDR.2160p.BDRip Ita Eng x265-NAHOM.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">9.96 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">45343F22B097F8AFC1EC5BB0D7F93588</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"45343F22B097F8AFC1EC5BB0D7F93588\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.2012.mkv|643140906|D35458FE9E176BC63267277D8F2608F5|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd.2012.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">613.35 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">D35458FE9E176BC63267277D8F2608F5</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"D35458FE9E176BC63267277D8F2608F5\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - Il giudice
+                                    dell\\&#8217;apocalisse
+                                    (2012.ITA.ENG.1080p.x264).mkv|13131934565|B8EE3B5EFB202A5AB017362A7F6A4D40|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - Il giudice dell'apocalisse
+                                    (2012.ITA.ENG.1080p.x264).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">12.23 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">B8EE3B5EFB202A5AB017362A7F6A4D40</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"B8EE3B5EFB202A5AB017362A7F6A4D40\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|[新特警判官].Dredd.2012.BDRip.X264-YXY.mkv|1474675167|6DAD5854E94CFC7048A2576FA2FA08D7|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">[新特警判官].Dredd.2012.BDRip.X264-YXY.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.37 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">6DAD5854E94CFC7048A2576FA2FA08D7</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"6DAD5854E94CFC7048A2576FA2FA08D7\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - Il Giudice Dell Apocalisse
+                                    (2012).mkv|2088988813|EE7A3B94D843DD33B7658CFFE7C7088A|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - Il Giudice Dell Apocalisse (2012).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.95 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">EE7A3B94D843DD33B7658CFFE7C7088A</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"EE7A3B94D843DD33B7658CFFE7C7088A\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (Dredd) (Pete Travis, 2012)
+                                    3D.mkv|4215911292|C93C9ACE2896B93C4B950B08FFAEC08D|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (Dredd) (Pete Travis, 2012) 3D.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">3.93 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">C93C9ACE2896B93C4B950B08FFAEC08D</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"C93C9ACE2896B93C4B950B08FFAEC08D\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (Spanish) 2012 DVDRip Xvid Ac3
+                                    TuCenTral.avi|914145280|9719CDF848C1B6D78F1A7E8B86AD9D52|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (Spanish) 2012 DVDRip Xvid Ac3 TuCenTral.avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">871.80 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">9719CDF848C1B6D78F1A7E8B86AD9D52</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"9719CDF848C1B6D78F1A7E8B86AD9D52\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (2012 BDRip m1080p x264
+                                    Spanish-English AC3 5.1 Subs).mkv|3933724729|1516C165F10CDBDE6B6CCBF0411A41A5|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012 BDRip m1080p x264 Spanish-English AC3 5.1 Subs).mkv
+                                 </font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">3.66 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1516C165F10CDBDE6B6CCBF0411A41A5</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"1516C165F10CDBDE6B6CCBF0411A41A5\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.2012.Spanish.DVDRip.Xvid.55.avi|741364502|68C4E06CE5349DF01459D7209B6BC7A6|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd.2012.Spanish.DVDRip.Xvid.55.avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">707.02 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">68C4E06CE5349DF01459D7209B6BC7A6</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"68C4E06CE5349DF01459D7209B6BC7A6\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.2012.MULTi.VFF.2160p.10bit.4KLight.HDR.BluRay.x265.AAC.7.1-XANDER-Wawacity.onl.mkv|3280194772|EBBEACE662667B2812CFFBC984BEAB88|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">
+                                    Dredd.2012.MULTi.VFF.2160p.10bit.4KLight.HDR.BluRay.x265.AAC.7....onl.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">3.05 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">EBBEACE662667B2812CFFBC984BEAB88</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"EBBEACE662667B2812CFFBC984BEAB88\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd
+                                    (2012).avi|732999456|E571E01D6C0C82D45CCCB20781B04029|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012).avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">699.04 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">E571E01D6C0C82D45CCCB20781B04029</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"E571E01D6C0C82D45CCCB20781B04029\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - 2012 Fr Subfrforced
+                                    720P.mkv|4693527408|0F75AA539135CD9E5CA0FF222328B7F3|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - 2012 Fr Subfrforced 720P.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">4.37 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">0F75AA539135CD9E5CA0FF222328B7F3</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"0F75AA539135CD9E5CA0FF222328B7F3\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd
+                                    (2012).mkv|4093800448|F05ED3A3FF4E23D785189A1F931784D7|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">3.81 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">F05ED3A3FF4E23D785189A1F931784D7</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"F05ED3A3FF4E23D785189A1F931784D7\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|超時空戰警
+                                    dredd.2012.720p.bluray.x264-sparks.mkv|4690558322|FE22AB2A95C825BF7A654E5C28D248B1|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">超時空戰警 dredd.2012.720p.bluray.x264-sparks.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">4.37 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">FE22AB2A95C825BF7A654E5C28D248B1</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"FE22AB2A95C825BF7A654E5C28D248B1\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (Судья Дредд)
+                                    (2012).mkv|4666942439|8D96A319A6BFDCED88493FB6464F8F76|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (Судья Дредд) (2012).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">4.35 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">8D96A319A6BFDCED88493FB6464F8F76</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"8D96A319A6BFDCED88493FB6464F8F76\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (2012)
+                                    FHD.mkv|3933881188|8D2C1446D7CA098AC807FEFBF787B79E|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012) FHD.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">3.66 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">8D2C1446D7CA098AC807FEFBF787B79E</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"8D2C1446D7CA098AC807FEFBF787B79E\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - Il giudice
+                                    dell\\&#8217;apocalisse (2012) (1080p x264, eng DTS, iTA eng
+                                    subs).mkv|10690539388|70C0106521E3F3B82139268134C8C1EE|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - Il giudice dell'apocalisse (2012) (1080p x264, eng
+                                    DTS...ubs).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">9.96 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">70C0106521E3F3B82139268134C8C1EE</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"70C0106521E3F3B82139268134C8C1EE\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd
+                                    2012-trailer.mkv|10059650|949B0B91A8ECBA2789DFF3612E59C72C|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd 2012-trailer.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">9.59 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">949B0B91A8ECBA2789DFF3612E59C72C</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"949B0B91A8ECBA2789DFF3612E59C72C\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd 2012 action science-fiction
+                                    multi.mkv|5755633664|966ACED81D545A8F5027071047FC17BE|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd 2012 action science-fiction multi.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">5.36 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">966ACED81D545A8F5027071047FC17BE</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"966ACED81D545A8F5027071047FC17BE\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|2 Dredd 3D - Judge Dredd (2012) (FSK18,
+                                    96min) (Deutsch, XviD, AC3-5.1,
+                                    BD)-MB.avi|1465980928|3521251220457CD0CE8C82A772708802|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">2 Dredd 3D - Judge Dredd (2012) (FSK18, 96min) (Deutsch,
+                                    XviD,...)-MB.avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.37 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">3521251220457CD0CE8C82A772708802</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"3521251220457CD0CE8C82A772708802\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (2012) -
+                                    1106.mp4|477734822|248D316205E4F3C505BE2435501FF44D|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012) - 1106.mp4</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">455.60 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">248D316205E4F3C505BE2435501FF44D</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"248D316205E4F3C505BE2435501FF44D\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|2012 - Dredd - Il giudice
+                                    dell\\&#8217;apocalisse.mkv|939096276|53A5830324E7156A91DB405FC077790C|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">2012 - Dredd - Il giudice dell'apocalisse.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">895.59 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">53A5830324E7156A91DB405FC077790C</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"53A5830324E7156A91DB405FC077790C\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|DREDD.2012.TRUEFRENCH.BDRip.XviD.avi|730869213|410A0BF103B678D248345D9644F8D59C|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">DREDD.2012.TRUEFRENCH.BDRip.XviD.avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">697.01 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">410A0BF103B678D248345D9644F8D59C</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"410A0BF103B678D248345D9644F8D59C\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (2012) -Sci-Fi-Action- Mit Karl
+                                    Urban,Rachel Wood,Andile Mngadi
+                                    -German.DTS.DL.1080p.BluRay.x265,Filmfan.mp4|1039722245|E53392E36104F945A75CFF465AE185E0|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012) -Sci-Fi-Action- Mit Karl Urban,Rachel
+                                    Wood,Andile...mfan.mp4</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">991.56 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">E53392E36104F945A75CFF465AE185E0</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"E53392E36104F945A75CFF465AE185E0\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd_2012_DVDrip_Castellano_by_ARKONADA.avi|917135360|1CE8EA432B499A1E0055C8CB15A9DFDF|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd_2012_DVDrip_Castellano_by_ARKONADA.avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">874.65 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1CE8EA432B499A1E0055C8CB15A9DFDF</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"1CE8EA432B499A1E0055C8CB15A9DFDF\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (2012) - eng, esp (onda
+                                    vital).mkv|56274163677|14364A1EE8D0F0A546DE90AD3E077353|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012) - eng, esp (onda vital).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">52.41 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">14364A1EE8D0F0A546DE90AD3E077353</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"14364A1EE8D0F0A546DE90AD3E077353\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - Il giudice
+                                    dell\\&#8217;apocalisse (2012).mkv|1807966226|DCCC97B5C6D54788A665459792E96431|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - Il giudice dell'apocalisse (2012).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.68 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">DCCC97B5C6D54788A665459792E96431</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"DCCC97B5C6D54788A665459792E96431\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.2012.1080p.x265.hevc.Spa.Eng.AC3.Tigole.Vickop.mkv|4377855678|63B2BF26952CD3C7A8E6CA6387385FBC|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd.2012.1080p.x265.hevc.Spa.Eng.AC3.Tigole.Vickop.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">4.08 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">63B2BF26952CD3C7A8E6CA6387385FBC</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"63B2BF26952CD3C7A8E6CA6387385FBC\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd.2012.Ger.Eng.BDRip.by.ozzy.mp4|1846595511|896FBB33DFE8516AD31066425C415D82|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd.2012.Ger.Eng.BDRip.by.ozzy.mp4</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.72 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">896FBB33DFE8516AD31066425C415D82</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"896FBB33DFE8516AD31066425C415D82\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - Il Giudice
+                                    dell\\&#8217;Apocalisse (2012).mkv|3535306496|D559593F86B8D659151EDE86D0E0A486|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - Il Giudice dell'Apocalisse (2012).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">3.29 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">D559593F86B8D659151EDE86D0E0A486</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"D559593F86B8D659151EDE86D0E0A486\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd
+                                    [2012].avi|1462461814|695CE0E0EF9A0E4C7532CFD251417217|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd [2012].avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.36 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">695CE0E0EF9A0E4C7532CFD251417217</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"695CE0E0EF9A0E4C7532CFD251417217\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|2012 -
+                                    Dredd.MP4|844214667|A1F54EAE02E200E1AAFA3B1902B79399|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">2012 - Dredd.MP4</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">805.11 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">A1F54EAE02E200E1AAFA3B1902B79399</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"A1F54EAE02E200E1AAFA3B1902B79399\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd 3D 2012 iTA-ENG_AAC BrRiP.720p
+                                    x264.TrTd_TeaM.avi|828762159|97BFD0A0225571BEAC83036C658D22E6|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd 3D 2012 iTA-ENG_AAC BrRiP.720p x264.TrTd_TeaM.avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">790.37 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">97BFD0A0225571BEAC83036C658D22E6</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"97BFD0A0225571BEAC83036C658D22E6\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd 2012
+                                    (V5A7).avi|914143774|494FDABB1142EACB6533483CAC403AE1|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd 2012 (V5A7).avi</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">871.80 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">494FDABB1142EACB6533483CAC403AE1</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"494FDABB1142EACB6533483CAC403AE1\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - La legge sono io (Sylvester
+                                    Stallone)[2012].mkv|617040130|E7C19CDA6743A9C59F52BD186097091E|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - La legge sono io (Sylvester Stallone)[2012].mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">588.46 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">E7C19CDA6743A9C59F52BD186097091E</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"E7C19CDA6743A9C59F52BD186097091E\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd
+                                    (2012).mp4|682536817|72347A659E4FBFF6F77AFB423C2E4898|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (2012).mp4</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">650.92 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">72347A659E4FBFF6F77AFB423C2E4898</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"72347A659E4FBFF6F77AFB423C2E4898\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd - 2012 -
+                                    SF.mkv|3080306544|7B9C31C5364FCEE9C3FD9D28F7AE5E14|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd - 2012 - SF.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">2.87 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">7B9C31C5364FCEE9C3FD9D28F7AE5E14</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"7B9C31C5364FCEE9C3FD9D28F7AE5E14\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd (Pete Travis,
+                                    2012)·Es·En·Esf·Ess·En.mkv|2184960049|2437585970511A74EA228D6AA9E5ACAB|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd (Pete Travis, 2012)·Es·En·Esf·Ess·En.mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">2.03 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">2437585970511A74EA228D6AA9E5ACAB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"2437585970511A74EA228D6AA9E5ACAB\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|DREDD [2012] [Acción-Ficción] [Spanish]
+                                    ( rpegc).mkv|2081798144|F7C19C278964A641F5E238CF21806D5E|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">DREDD [2012] [Acción-Ficción] [Spanish] ( rpegc).mkv</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">1.94 GB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">F7C19C278964A641F5E238CF21806D5E</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(1)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"F7C19C278964A641F5E238CF21806D5E\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>
+                  <tr>\n <td class=\"search-line-left\">
+                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" valign=middle class=\"search-line\">
+                           <tr>
+                              <td background=\"l_sources_0.gif\" width=\"16\" height=\"16\"
+                                 style=\"background-position:center;background-repeat:no-repeat\"><a href=\"#\"
+                                    onMouseover=\"searchmenu(event,'ed2k://|file|Dredd 저지 드레드
+                                    2012.mp4|666507864|ED7ABBD47056709F50781DFE6A8F5FC4|/')\"
+                                    onMouseout=\"delayhidemenu()\"><img src=\"is_none.gif\"></a></td>
+                              <td>&nbsp;<img src=\"filetype_video.gif\" align=\"middle\"></td>
+                              <td>&nbsp;</td>\n <td>
+                                 <font color=\"#ffffff\">Dredd 저지 드레드 2012.mp4</font>
+                              </td>\n
+                           </tr>\n
+                        </table>\n
+                     </td>\n <td class=\"search-line-right\">
+                        <font color=\"#ffffff\">635.63 MB</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">ED7ABBD47056709F50781DFE6A8F5FC4</font>
+                     </td>\n <td class=\"search-line\" style=\"font-size:7.5pt\">
+                        <font color=\"#ffffff\">1(0)</font>
+                     </td>\n <td class=\"search-line\"><input type=\"checkbox\" name=\"downloads\"
+                           value=\"ED7ABBD47056709F50781DFE6A8F5FC4\"></td>\n</tr>\n<tr>\n <td colspan=\"6\"
+                        bgcolor=\"#005784\" height=\"1\"></td>\n</tr>\n <tr>\n <td colspan=\"6\" class=\"search-line\">
+                        \n <br><input type=\"submit\" value=\"Download\">
+                        <form action=\"\">&nbsp;&nbsp;&nbsp;<img src=\"l_catarrow.gif\"
+                              align=\"top\">&nbsp;&nbsp;&nbsp;<select name=\"cat\" size=\"1\">
+                              <option selected value=\"0\">All</option>\n<option value=\"1\">almacen01</option>\n<option
+                                 value=\"2\">almacen02</option>\n<option value=\"3\">almacen03</option>\n<option
+                                 value=\"4\">almacen04</option>\n
+                           </select></form><br><br>\n
+                     </td>\n </tr>\n
+               </table>\n </form>\n </td>\n </tr>\n</table>
+</body>\n
+
+</html>"
