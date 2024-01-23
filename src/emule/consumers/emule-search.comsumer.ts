@@ -11,7 +11,7 @@ export class EmuleSearchConsumer {
         @InjectQueue('emuleSearch') private emuleSearchQueue: Queue,
 
     ) { }
-    @Process({ concurrency: 1 })
+    @Process()
     async searchEmule(job: Job<JobData>) {
         //TODO check if is other search is in queue, if is wait until finish search and retrive results.
         const jobList = await this.emuleRequestQueue.getJobs(['waiting', 'active']);
@@ -57,7 +57,7 @@ export class EmuleSearchConsumer {
 
 
     }
-    @Process({ name: 'searchResult', concurrency: 1 })
+    @Process({ name: 'searchResult' })
     async searchResultEmule(job: Job<JobData>) {
         const jobRequest = await this.emuleRequestQueue.add("searchResult", job.data, {
             delay: 1000,

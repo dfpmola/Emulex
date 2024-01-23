@@ -39,7 +39,7 @@ export class EmuleRequestConsumer {
 
     }
     */
-    @Process({ name: "search", concurrency: 1 })
+    @Process({ name: "search" })
     async syncsearchRequestEmule(job: Job<JobData>) {
         const jobData = new JobData(job.data._jobType, job.data._keyword);
 
@@ -47,7 +47,7 @@ export class EmuleRequestConsumer {
         return data;
 
     }
-    @Process({ name: "searchResult", concurrency: 1 })
+    @Process({ name: "searchResult" })
     async syncsearchResultRequestEmule(job: Job<JobData>) {
         const jobData = new JobData(job.data._jobType, job.data._keyword);
 
