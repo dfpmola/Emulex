@@ -14,13 +14,24 @@ export class EmuleSearchConsumer {
     @Process()
     async searchEmule(job: Job<JobData>) {
         //TODO check if is other search is in queue, if is wait until finish search and retrive results.
-        const jobList = await this.emuleRequestQueue.getJobs(['waiting', 'active']);
-        if (jobList.length != 0) {
+
+
+        const jobList = await this.emuleSearchQueue.getJobs(['waiting', 'active', 'delayed']);
+        let result = jobList.find(obj => {
+            return obj.name === "searchResult"
+        })
+        if (jobList.length != 0 && result) {
+            await this.emuleSearchQueue.add(job, {
+                delay: 2000,
+                removeOnFail: true
+
+            },)
 
         }
-        console.log(jobList);
+
+
         const jobRequest = await this.emuleRequestQueue.add("search", job.data, {
-            delay: 1000, attempts: 1,
+            delay: 2000,
             removeOnFail: true
         });
         const JobSearch = await jobRequest.finished();
@@ -28,7 +39,7 @@ export class EmuleSearchConsumer {
 
         if (await this.emuleService.checkLoginPageSearch(JobSearch)) {
             const jobRequest = await this.emuleRequestQueue.add("search", job.data, {
-                delay: 1000, attempts: 1,
+                delay: 2000, attempts: 1,
                 removeOnFail: true
             });
             const JobSearch = await jobRequest.finished();
@@ -41,10 +52,12 @@ export class EmuleSearchConsumer {
 
             JobSearchResult = await this.emuleSearchQueue.add('searchResult', new JobData('searchResult', ''),
                 {
-                    'delay': 5000,
+                    'delay': 8000,
                     'lifo': true,
                     removeOnFail: true,
                 });
+
+
             try {
                 const jobDataSearchResult = await JobSearchResult.finished();
                 return jobDataSearchResult;
@@ -60,7 +73,8 @@ export class EmuleSearchConsumer {
     @Process({ name: 'searchResult' })
     async searchResultEmule(job: Job<JobData>) {
         const jobRequest = await this.emuleRequestQueue.add("searchResult", job.data, {
-            delay: 1000,
+            delay: 2000,
+            removeOnFail: true,
         });
         try {
             const JobSearch = await jobRequest.finished();

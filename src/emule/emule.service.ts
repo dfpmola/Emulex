@@ -16,6 +16,8 @@ export class EmuleService implements OnModuleInit {
     constructor(
         @InjectQueue('emuleRequest') private emuleRequestQueue: Queue,
         @InjectQueue('emuleSearch') private emuleSearchQueue: Queue,
+        @InjectQueue('emuleSearchResult') private emuleSearchResultQueue: Queue,
+
 
         private readonly httpService: HttpService,
         private redisCacheService: RedisCacheService
@@ -32,7 +34,6 @@ export class EmuleService implements OnModuleInit {
             dataObject,
             {
                 delay: 2000,
-                attempts: 0,
                 removeOnFail: true
             }, // 2 seconds delayed
         );
@@ -44,7 +45,7 @@ export class EmuleService implements OnModuleInit {
         const job = await this.emuleSearchQueue.add(
             dataObject,
             {
-                delay: 2000, attempts: 0,
+                delay: 2000,
                 removeOnFail: true
 
             }, // 2 seconds delayed

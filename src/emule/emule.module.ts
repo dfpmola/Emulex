@@ -8,13 +8,23 @@ import { HttpModule } from '@nestjs/axios';
 import { RedisCacheModule } from 'src/redis-cache/redis-cache.module';
 import { EmuleRequestConsumer } from './consumers/emule-request.consumer';
 import { EmuleSearchConsumer } from './consumers/emule-search.comsumer';
+import { EmuleSearchResultConsumer } from './consumers/emule-searchResult.comsumer';
 @Module({
   imports: [
     BullModule.registerQueue({
       name: "emuleRequest"
     },
       {
-        name: 'emuleSearch'
+        name: 'emuleSearch',
+        settings: {
+          lockDuration: 300000,
+        }
+      },
+      {
+        name: 'emuleSearchResult',
+        settings: {
+          lockDuration: 300000,
+        }
       }
     ),
     BullBoardModule.forFeature({
@@ -24,6 +34,10 @@ import { EmuleSearchConsumer } from './consumers/emule-search.comsumer';
       {
         name: 'emuleSearch',
         adapter: BullMQAdapter, //or use BullAdapter if you're using bull instead of bullMQ
+      },
+      {
+        name: 'emuleSearchResult',
+        adapter: BullMQAdapter, //or use BullAdapter if you're using bull instead of bullMQ
       }),
     HttpModule.register({
       timeout: 15000,
@@ -31,7 +45,7 @@ import { EmuleSearchConsumer } from './consumers/emule-search.comsumer';
     }),
     RedisCacheModule,
   ],
-  providers: [EmuleService, EmuleRequestConsumer, EmuleSearchConsumer],
+  providers: [EmuleService, EmuleRequestConsumer, EmuleSearchConsumer, EmuleSearchResultConsumer],
   controllers: [EmuleController],
   exports: [BullModule]
 })
