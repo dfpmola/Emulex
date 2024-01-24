@@ -33,8 +33,9 @@ export class EmuleService implements OnModuleInit {
         const job = await this.emuleRequestQueue.add(
             dataObject,
             {
-                delay: 2000,
-                removeOnFail: true
+                delay: 1000,
+                removeOnFail: true,
+                removeOnComplete: false,
             }, // 2 seconds delayed
         );
         const data = await job.finished();
@@ -42,11 +43,12 @@ export class EmuleService implements OnModuleInit {
         return this.checkLoginPage(data, dataObject);
     }
     async processSearchQueue(dataObject: JobData) {
-        const job = await this.emuleSearchQueue.add(
+        const job = await this.emuleSearchQueue.add("search",
             dataObject,
             {
-                delay: 2000,
-                removeOnFail: true
+                delay: 1000,
+                removeOnFail: true,
+                removeOnComplete: false,
 
             }, // 2 seconds delayed
         );

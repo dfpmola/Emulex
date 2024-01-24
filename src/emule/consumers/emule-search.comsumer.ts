@@ -9,9 +9,11 @@ export class EmuleSearchConsumer {
         private emuleService: EmuleService,
         @InjectQueue('emuleRequest') private emuleRequestQueue: Queue,
         @InjectQueue('emuleSearch') private emuleSearchQueue: Queue,
+        @InjectQueue('emuleSearchResult') private emuleSearchResultQueue: Queue,
+
 
     ) { }
-    @Process()
+    @Process({ name: "search", concurrency: 1 })
     async searchEmule(job: Job<JobData>) {
         //TODO check if is other search is in queue, if is wait until finish search and retrive results.
 
@@ -22,7 +24,7 @@ export class EmuleSearchConsumer {
         })
         if (jobList.length != 0 && result) {
             await this.emuleSearchQueue.add(job, {
-                delay: 2000,
+                delay: 1000,
                 removeOnFail: true
 
             },)
@@ -31,16 +33,18 @@ export class EmuleSearchConsumer {
 
 
         const jobRequest = await this.emuleRequestQueue.add("search", job.data, {
-            delay: 2000,
-            removeOnFail: true
+            delay: 1000,
+            removeOnFail: true,
+            removeOnComplete: false,
         });
         const JobSearch = await jobRequest.finished();
         let JobSearchResult;
 
         if (await this.emuleService.checkLoginPageSearch(JobSearch)) {
             const jobRequest = await this.emuleRequestQueue.add("search", job.data, {
-                delay: 2000, attempts: 1,
-                removeOnFail: true
+                delay: 1000, attempts: 1,
+                removeOnFail: true,
+                removeOnComplete: false,
             });
             const JobSearch = await jobRequest.finished();
             if (await this.emuleService.checkLoginPageSearch(JobSearch)) {
@@ -50,11 +54,12 @@ export class EmuleSearchConsumer {
 
         if (jobRequest.data._jobType === 'search') {
 
-            JobSearchResult = await this.emuleSearchQueue.add('searchResult', new JobData('searchResult', ''),
+            JobSearchResult = await this.emuleSearchResultQueue.add('searchResult', new JobData('searchResult', ''),
                 {
                     'delay': 8000,
                     'lifo': true,
                     removeOnFail: true,
+                    removeOnComplete: false,
                 });
 
 
@@ -70,11 +75,13 @@ export class EmuleSearchConsumer {
 
 
     }
-    @Process({ name: 'searchResult' })
+    /*
+    @Process({ name: 'searchResult', concurrency: 1 })
     async searchResultEmule(job: Job<JobData>) {
         const jobRequest = await this.emuleRequestQueue.add("searchResult", job.data, {
-            delay: 2000,
+            delay: 1000,
             removeOnFail: true,
+            removeOnComplete: false,
         });
         try {
             const JobSearch = await jobRequest.finished();
@@ -86,4 +93,5 @@ export class EmuleSearchConsumer {
         }
 
     }
+    */
 }

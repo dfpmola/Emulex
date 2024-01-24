@@ -12,14 +12,14 @@ export class EmuleSearchResultConsumer {
         @InjectQueue('emuleSearchResult') private emuleSearchResultQueue: Queue,
 
     ) { }
-    @Process()
-    async searResultchEmule(job: Job<JobData>) {
+    @Process({ name: 'searchResult', concurrency: 1 })
+    async searchResultchEmule(job: Job<JobData>) {
 
         const jobRequest = await this.emuleRequestQueue.add("searchResult", job.data, {
             delay: 1000,
             removeOnFail: true,
+            removeOnComplete: false,
         });
-
         try {
             const JobSearch = await jobRequest.finished();
             return JobSearch;
@@ -28,6 +28,7 @@ export class EmuleSearchResultConsumer {
             console.log(Error);
             throw Error("Job emuleRequestQueue ended with error")
         }
+
 
 
 
