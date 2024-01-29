@@ -55,5 +55,13 @@ export class EmuleRequestConsumer {
         return JSON.stringify(dataSearchResult);
     }
 
+    @Process({ name: "checkStatus", concurrency: 0 })
+    async syncCheckStatusRequestEmule(job: Job<JobData>) {
+        const jobData = new JobData(job.data._jobType, job.data._keyword);
+
+        const dataStatus = await this.emuleService.getStatus()
+        return dataStatus;
+    }
+
 
 }

@@ -40,6 +40,7 @@ export class EmuleSearchConsumer {
         const JobSearch = await jobRequest.finished();
         let JobSearchResult;
 
+        /*
         if (await this.emuleService.checkLoginPageSearch(JobSearch)) {
             const jobRequest = await this.emuleRequestQueue.add("search", job.data, {
                 delay: 1000, attempts: 1,
@@ -51,6 +52,7 @@ export class EmuleSearchConsumer {
                 throw Error("Error in login, check emule");
             }
         }
+        */
 
         if (jobRequest.data._jobType === 'search') {
 

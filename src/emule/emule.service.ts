@@ -29,51 +29,56 @@ export class EmuleService implements OnModuleInit {
 
 
 
-    async processRequestQueue(dataObject: JobData) {
-        const job = await this.emuleRequestQueue.add(
+    async processRequestQueue(dataObject: JobData, priority: number) {
+        const job = await this.emuleRequestQueue.add(dataObject.jobType,
             dataObject,
             {
                 delay: 1000,
                 removeOnFail: true,
                 removeOnComplete: false,
+                priority: priority
+
             }, // 2 seconds delayed
         );
         const data = await job.finished();
 
-        return this.checkLoginPage(data, dataObject);
+        return data;
     }
-    async processSearchQueue(dataObject: JobData) {
+    async processSearchQueue(dataObject: JobData, priority: number) {
         const job = await this.emuleSearchQueue.add("search",
             dataObject,
             {
                 delay: 1000,
                 removeOnFail: true,
                 removeOnComplete: false,
+                priority: priority,
 
             }, // 2 seconds delayed
         );
         const data = await job.finished();
 
-        return this.checkLoginPage(data, dataObject);
-
-    }
-
-    async checkLoginPage(data, dataObject: JobData) {
-        if (typeof data === 'string' && data.indexOf('.failed') >= 0) {
-            console.log("SES failed");
-            this.storeRedisIdEmule();
-            return this.processRequestQueue(dataObject);
-        };
         return data;
+
     }
 
-    async checkLoginPageSearch(data) {
+    async checkLoginPage(data) {
         if (typeof data === 'string' && data.indexOf('.failed') >= 0) {
             console.log("SES failed");
-            this.storeRedisIdEmule();
+            await this.storeRedisIdEmule();
             return true;
         };
         return false;
+    }
+    async validation(data: string, urlParameters): Promise<string> {
+        let result: string = data;
+        if (await this.checkLoginPage(result)) {
+            urlParameters.ses = await this.redisCacheService.retriveValue();
+            result = await this.makeRequest(urlParameters);
+            if (await this.checkLoginPage(result)) {
+                throw Error("Error in login, check emule");
+            }
+        }
+        return result;
     }
     async storeRedisIdEmule() {
         let value;
@@ -99,11 +104,6 @@ export class EmuleService implements OnModuleInit {
 
         const node = $("a:contains('My Info')").attr('href')
 
-        /*
-        const node = parse(html); 
-        console.log(node.querySelector("a:contains('My Info')"));
-        const nodesAttribute = node.querySelector("a:contains('My Info')").rawAttrs
-        */
         const href = node;
         const cadena = href;
         const regex = /ses=(.*?)&/;
@@ -134,14 +134,14 @@ export class EmuleService implements OnModuleInit {
             'w': 'search'
 
         };
-        let html;
-        try {
-            html = await this.makeRequest(urlParameters);
-        } catch (error) {
-            console.log(error);
-            return html;
-        }
-        return html;
+        let html: string;
+        html = await this.makeRequest(urlParameters);
+
+        let data: string = html;
+
+        data = await this.validation(html, urlParameters);
+
+        return data;
     }
     async getSearchResults() {
 
@@ -151,26 +151,34 @@ export class EmuleService implements OnModuleInit {
             'w': 'search'
         };
         let html: string;
-        try {
-            html = await this.makeRequest(urlParameters);
-        } catch (error) {
-            console.log(error);
-            throw Error(error);
-        }
+        html = await this.makeRequest(urlParameters);
 
-        const node = parse(html);
-        let $ = cheerio.load(html);
+        let data: string = html;
+        data = await this.validation(html, urlParameters);
+
+
+        const node = parse(data);
+        let $ = cheerio.load(data);
 
         let files = [];
 
         const nodes = $("form[method='GET'] table:has(a:contains('Search'))");
         $("tr", nodes).each((i, el) => {
             if (el.children.length == 11 && typeof ($(el).find("a").attr('onmouseover')) !== 'undefined') {
-                const ed2kInfo = ($(el).find("a").attr('onmouseover')).split("|");
-                const peersSeeds = (($(el.children[7]).text()).replace([')'], '')).split('(')
+                const edk2linkClean = ($(el).find("a").attr('onmouseover').replace("searchmenu(event,'", '').replace("')", ''));
+
+                let ed2kInfo = edk2linkClean.split("|");
+
+                const fileName = ed2kInfo[2];
+
+                ed2kInfo[2] = ed2kInfo[2].replaceAll(' ', "%20");
+                const urled2k = ed2kInfo.join('|');
+
+                const peersSeeds = (($(el.children[7]).text()).replace([')'], '')).split('(');
                 files.push({
+                    urled2k: urled2k,
                     hash: ed2kInfo[4],
-                    nameFile: ed2kInfo[2],
+                    nameFile: fileName,
                     size: ed2kInfo[3],
                     peers: peersSeeds[0],
                     seeds: peersSeeds[1],
@@ -183,21 +191,60 @@ export class EmuleService implements OnModuleInit {
 
 
     }
+    async getStatus() {
+
+        const ses = await this.redisCacheService.retriveValue();
+        const urlParameters = {
+            'ses': ses,
+            'w': 'myinfo'
+        };
+        let html: string;
+
+        html = await this.makeRequest(urlParameters);
+
+        let data: string = html;
+        data = await this.validation(html, urlParameters);
+
+        let $ = cheerio.load(data);
+
+        let files = [];
+
+        const nodes = $("pre");
+        const cadena = (nodes.html().replace(/(\r\n|\n|\r)/gm, "")).replace('\t', " ");
+
+        const isEd2kConected: boolean = cadena.includes("eD2K NetworkStatus: Connected");
+        const isKadConected: boolean = cadena.includes("Kad NetworkStatus:\tOpen");
+
+        const status: boolean = isEd2kConected && isKadConected;
+
+        return status ? 200 : 503;
+
+
+    }
     async makeRequest(parameters) {
-        const config = this.configGenerator(parameters);
-        console.log(`Start HTTP request with parameter: ${JSON.stringify(parameters)}`);
-        const { data } = await firstValueFrom(
-            this.httpService.post<any>(this.baseUrl + '/',
-                config.urlParam, {
-                headers: config.headers
-            }).pipe(
-                catchError((error: AxiosError) => {
-                    console.log(error.response.data);
-                    throw 'Error in login request'
-                })
-            )
-        );
-        return data;
+        try {
+            const config = this.configGenerator(parameters);
+            console.log(`Start HTTP request with parameter: ${JSON.stringify(parameters)}`);
+            const { data } = await firstValueFrom(
+                this.httpService.post<any>(this.baseUrl + '/',
+                    config.urlParam, {
+                    headers: config.headers
+                }).pipe(
+                    catchError((error: AxiosError) => {
+                        console.log(error.response.data);
+                        throw 'Error in login request'
+                    })
+                )
+            );
+
+            return data;
+        } catch (error) {
+            console.log(error);
+            throw Error(error);
+        }
+
+
+
     }
     configGenerator(urlParameters: string[][]) {
 
