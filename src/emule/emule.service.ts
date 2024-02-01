@@ -1,12 +1,14 @@
 import { HttpService } from '@nestjs/axios';
 import { InjectQueue } from '@nestjs/bull';
-import { HttpCode, Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { Queue } from 'bull';
-import { catchError, firstValueFrom, throwError } from 'rxjs';
+import { catchError, firstValueFrom } from 'rxjs';
 import { RedisCacheService } from 'src/redis-cache/redis-cache.service';
 import { JobData } from './entity/JobData.class';
 import { parse } from 'node-html-parser';
+import { Ed2kfile } from './entity/Ed2kfile.class';
+import { Ed2kSearch } from './entity/Ed2kSearch.class';
 const cheerio = require('cheerio');
 @Injectable()
 export class EmuleService implements OnModuleInit {
@@ -33,7 +35,7 @@ export class EmuleService implements OnModuleInit {
         const job = await this.emuleRequestQueue.add(dataObject.jobType,
             dataObject,
             {
-                delay: 1000,
+                delay: 5000,
                 removeOnFail: true,
                 removeOnComplete: false,
                 priority: priority
@@ -61,7 +63,7 @@ export class EmuleService implements OnModuleInit {
 
     }
 
-    async checkLoginPage(data) {
+    async checkLoginPage(data): Promise<boolean> {
         if (typeof data === 'string' && data.indexOf('.failed') >= 0) {
             console.log("SES failed");
             await this.storeRedisIdEmule();
@@ -145,10 +147,62 @@ export class EmuleService implements OnModuleInit {
     }
     async getSearchResults() {
 
+        try {
+
+
+            const ses = await this.redisCacheService.retriveValue();
+            const urlParameters = {
+                'ses': ses,
+                'w': 'search'
+            };
+            let html: string;
+            html = await this.makeRequest(urlParameters);
+
+            let data: string = html;
+            data = await this.validation(html, urlParameters);
+
+
+            const node = parse(data);
+            let $ = cheerio.load(data);
+
+            let files: Ed2kSearch[] = [];
+
+            const nodes = $("form[method='GET'] table:has(a:contains('Search'))");
+            $("tr", nodes).each((i, el) => {
+                if (el.children.length == 11 && typeof ($(el).find("a").attr('onmouseover')) !== 'undefined') {
+                    const edk2linkClean = ($(el).find("a").attr('onmouseover').replace("searchmenu(event,'", '').replace("')", ''));
+
+                    let ed2kInfo = edk2linkClean.split("|");
+
+                    const fileName = ed2kInfo[2];
+
+                    ed2kInfo[2] = ed2kInfo[2].replaceAll(' ', "%20");
+                    const urled2k = ed2kInfo.join('|');
+
+                    const peersSeeds = (($(el.children[7]).text()).replace([')'], '')).split('(');
+
+                    const ed2kSearch = new Ed2kSearch(fileName, ed2kInfo[4], ed2kInfo[3], urled2k, parseInt(peersSeeds[0]), parseInt(peersSeeds[1]));
+                    files.push(ed2kSearch);
+                }
+
+            });
+
+            return files;
+
+        }
+        catch (Error) {
+            console.log(Error);
+            throw Error;
+        }
+    }
+
+    async getDownloads() {
+
         const ses = await this.redisCacheService.retriveValue();
         const urlParameters = {
             'ses': ses,
-            'w': 'search'
+            'w': 'transfer',
+            'cat': '5'
         };
         let html: string;
         html = await this.makeRequest(urlParameters);
@@ -162,35 +216,83 @@ export class EmuleService implements OnModuleInit {
 
         let files = [];
 
-        const nodes = $("form[method='GET'] table:has(a:contains('Search'))");
+        //Gets the downloads table
+        const nodes = $("table[bgcolor='#99CCFF']:not(.percent_table)");
+
         $("tr", nodes).each((i, el) => {
-            if (el.children.length == 11 && typeof ($(el).find("a").attr('onmouseover')) !== 'undefined') {
-                const edk2linkClean = ($(el).find("a").attr('onmouseover').replace("searchmenu(event,'", '').replace("')", ''));
+            if (el.children.length == 19 && $(el).find("a").attr('onmouseout') == 'delayhidemenu()') {
 
-                let ed2kInfo = edk2linkClean.split("|");
+                //PopUp where the information is displayed
+                const donwloadsPopup = $(el).find("a").attr('onmouseover').split(",")
+                const infoDownload = donwloadsPopup[2].split("\\n");
 
-                const fileName = ed2kInfo[2];
+                //Speed in kilobytes
+                const downloadSpeed = $(el).children("td").get().map((img) => {
+                    if ($(img).attr('valign') == 'top' && $(img).attr('nowrap') == "" && $(img).attr('class') == 'down-line-downloading-right') {
+                        console.log("text: " + $(img).text());
+                        return $(img).text();
+                    }
+                }).filter(notUndefined => notUndefined !== undefined);;
 
-                ed2kInfo[2] = ed2kInfo[2].replaceAll(' ', "%20");
-                const urled2k = ed2kInfo.join('|');
 
-                const peersSeeds = (($(el.children[7]).text()).replace([')'], '')).split('(');
-                files.push({
-                    urled2k: urled2k,
-                    hash: ed2kInfo[4],
-                    nameFile: fileName,
-                    size: ed2kInfo[3],
-                    peers: peersSeeds[0],
-                    seeds: peersSeeds[1],
-                });
+                //Format the text by jumplines and avoid empty entry
+                const result = (donwloadsPopup[2].split("\\n").filter((elemnt) => elemnt.length > 0));
+                let dataFile = {
+                    fileName: result[0]
+                };
+
+                //Transform each entry
+                for (let index = 1; index < result.length; index++) {
+                    const entry = result[index].split(":");
+                    dataFile[entry[0]] = entry[1];
+                }
+
+                const hash: string = dataFile['Hash'] ?? dataFile['eD2K Hash'];
+
+
+                let size: string = "0";
+                if (infoDownload[6].includes('Size') || infoDownload[6].includes('Completed')) {
+                    size = infoDownload[6].split(':')[1]
+                }
+                else if (infoDownload[2].includes('Size on disk')) {
+                    size = infoDownload[2].split(":")[1].split('(')[0]
+                }
+                else {
+                    size = infoDownload[3].split(':')[1]
+                }
+                const sizeClean: string[] = (size.split('('))[0].split('/');
+                const totalSize: string = sizeClean[1] ?? sizeClean[0];
+                const downloadedSize: string = sizeClean[0];
+
+                const ed2kFile = new Ed2kfile(infoDownload[0], hash, totalSize, dataFile['Status'] ?? "Completed", downloadSpeed[2] ?? '0', downloadedSize, " ")
+
+                files.push(ed2kFile);
             }
 
         });
 
         return files;
-
-
     }
+
+    async startDownload(keyword: string) {
+        const ses = await this.redisCacheService.retriveValue();
+        const urlParameters = {
+            'ses': ses,
+            'w': 'transfer',
+            'ed2k': keyword,
+            'cat': 5
+
+        };
+        let html: string;
+        html = await this.makeRequest(urlParameters);
+
+        let data: string = html;
+
+        data = await this.validation(html, urlParameters);
+
+        return data;
+    }
+
     async getStatus() {
 
         const ses = await this.redisCacheService.retriveValue();

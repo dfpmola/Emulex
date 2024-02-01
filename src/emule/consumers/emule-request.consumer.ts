@@ -63,5 +63,19 @@ export class EmuleRequestConsumer {
         return dataStatus;
     }
 
+    @Process({ name: "downloads", concurrency: 0 })
+    async syncDownloadsRequestEmule(job: Job<JobData>) {
+        const jobData = new JobData(job.data._jobType, job.data._keyword);
+        const dataStatus = await this.emuleService.getDownloads()
+        return JSON.stringify(dataStatus);
+    }
+
+    @Process({ name: "addDownloads", concurrency: 0 })
+    async syncAddDownloadsRequestEmule(job: Job<JobData>) {
+        const jobData = new JobData(job.data._jobType, job.data._keyword);
+        const dataStatus = await this.emuleService.startDownload(jobData.keyword);
+        return JSON.stringify(dataStatus);
+    }
+
 
 }

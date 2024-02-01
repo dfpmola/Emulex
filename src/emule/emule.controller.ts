@@ -1,9 +1,12 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Res, UseGuards } from '@nestjs/common';
 import { EmuleService } from './emule.service';
 import { SearchDto } from './dto/search.dto';
 import { JobData } from './entity/JobData.class';
 import { query } from 'express';
+import { CheckApiGuard } from 'src/check-api/check-api.guard';
+import { DownloadDto } from './dto/DownloadDto';
 
+@UseGuards(CheckApiGuard)
 @Controller('emule')
 export class EmuleController {
     constructor(private emuleService: EmuleService) { }
@@ -43,5 +46,23 @@ export class EmuleController {
     async getEd2k(@Query() query: { link: string }) {
         return (`<a href="${query.link}">${query.link}</a>`);
 
+    }
+
+    @Get("downloads")
+    async downloads() {
+        console.log(`Request GET downloads `);
+        const jobData = new JobData("downloads", "")
+        const filesDownloads = await this.emuleService.processRequestQueue(jobData, 8);
+        return filesDownloads;
+    }
+
+    @Post("download")
+    async addDownload(@Body() downloadDto: DownloadDto) {
+        console.log(`Request POST addDownloads `);
+        const ed2kurl = downloadDto.ed2kurl;
+
+        const jobData = new JobData("addDownloads", ed2kurl)
+        const filesDownloads = await this.emuleService.processRequestQueue(jobData, 8);
+        return filesDownloads;
     }
 }
