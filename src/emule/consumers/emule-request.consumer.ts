@@ -77,5 +77,13 @@ export class EmuleRequestConsumer {
         return JSON.stringify(dataStatus);
     }
 
+    @Process({ name: "getSharedFiles", concurrency: 0 })
+    async syncGetSharedFilesRequestEmule(job: Job<JobData>) {
+        const jobData = new JobData(job.data._jobType, job.data._keyword);
+
+        const dataStatus = await this.emuleService.getSharedFiles()
+        return dataStatus;
+    }
+
 
 }

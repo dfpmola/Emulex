@@ -1,13 +1,13 @@
 import { Ed2k } from "./Ed2k.class";
 
 export enum Status {
-    downloading,
-    waiting,
-    stoped,
-    paused,
-    moving,
-    hashing,
-    complete
+    downloading = 'downloading',
+    waiting = 'Waiting',
+    stoped = 'Stopped',
+    paused = 'Paused',
+    moving = 'moving',
+    hashing = 'hashing',
+    complete = 'Completed'
 }
 
 export class Ed2kfile extends Ed2k {
@@ -17,13 +17,13 @@ export class Ed2kfile extends Ed2k {
     private _downloadedSize: number;
     private _path: string
 
-    constructor($fileName: string, $hash: string, $size: string, $status: Status, $speed: string, $downloadedSize: string, $path: string) {
+    constructor($fileName: string, $hash: string, $size: string, $status: string, $speed: string, $downloadedSize: string, $path: string) {
         super($fileName, $hash, 0);
 
         this._size = this.convertoBytes($size);
-        this._speed = this.convertoBytes($speed);
+        this._speed = this.convertoBytesSpeed($speed);
         this._downloadedSize = this.convertoBytes($downloadedSize);
-        this._status = $status;
+        this._status = this.getStatus($status);
         this._eta = $speed ? this.calculateEta(this._size, this._downloadedSize, this._speed) : 0;
         this._path = $path
 
@@ -37,15 +37,22 @@ export class Ed2kfile extends Ed2k {
     }
     private getStatus($status: string): Status {
 
-        switch ($status.replaceAll(" ", "")) {
-            case "downloading":
+
+        let title = $status;
+        if ($status.includes('sources)')) {
+            title = ($status.split('(from'))[0];
+        }
+
+        switch (title.replaceAll(" ", "")) {
+            case "Downloading":
                 return Status.downloading;
-                break;
-            case "waiting":
+            case "Waiting":
                 return Status.waiting;
-            case "hashing":
+            case "Completed":
+                return Status.complete;
+            case "Hashing":
                 return Status.hashing;
-            case "moving":
+            case "Moving":
                 return Status.moving;
             default:
                 break;

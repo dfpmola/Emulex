@@ -9,6 +9,8 @@ import { RedisCacheModule } from 'src/redis-cache/redis-cache.module';
 import { EmuleRequestConsumer } from './consumers/emule-request.consumer';
 import { EmuleSearchConsumer } from './consumers/emule-search.comsumer';
 import { EmuleSearchResultConsumer } from './consumers/emule-searchResult.comsumer';
+import { CacheModule } from '@nestjs/cache-manager';
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     BullModule.registerQueue({
@@ -44,6 +46,8 @@ import { EmuleSearchResultConsumer } from './consumers/emule-searchResult.comsum
       maxRedirects: 5,
     }),
     RedisCacheModule,
+    CacheModule.register(),
+    ConfigModule
   ],
   providers: [EmuleService, EmuleRequestConsumer, EmuleSearchConsumer, EmuleSearchResultConsumer],
   controllers: [EmuleController],

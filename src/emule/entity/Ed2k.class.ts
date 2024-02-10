@@ -66,19 +66,29 @@ export class Ed2k {
 
         if (value.includes("GB")) {
             let cleanValue: number = parseFloat(value.replace("GB", ""));
-            const sizeInBytes: number = cleanValue * 1000000000;
+            const sizeInBytes: number = cleanValue * 1073741824;
+            //const sizeInBytes: number = cleanValue * (1024 * 6)
             return sizeInBytes;
         }
         else if (value.includes("MB")) {
             let cleanValue: number = parseFloat(value.replace("MB", ""));
-            const sizeInBytes: number = cleanValue * 1000000;
+            const sizeInBytes: number = cleanValue * 1048576;
+            //const sizeInBytes: number = cleanValue * (1024 * 3)
+
             return sizeInBytes;
         }
         else {
             let cleanValue: number = parseFloat(value);
-            const sizeInBytes: number = cleanValue * Math.pow(1024, 1);
+            const sizeInBytes: number = cleanValue;
             return sizeInBytes;
         }
     }
 
+    protected convertoBytesSpeed(value: string): number {
+
+        let cleanValue: number = parseFloat(value);
+        const sizeInBytes = cleanValue * Math.pow(1024, 1);
+        return sizeInBytes;
+
+    }
 }

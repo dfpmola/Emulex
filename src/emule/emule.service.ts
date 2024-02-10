@@ -9,24 +9,48 @@ import { JobData } from './entity/JobData.class';
 import { parse } from 'node-html-parser';
 import { Ed2kfile } from './entity/Ed2kfile.class';
 import { Ed2kSearch } from './entity/Ed2kSearch.class';
+import { ConfigService } from '@nestjs/config';
+const chokidar = require('chokidar');
+const fs = require('fs');
+const fsp = fs.promises;
 const cheerio = require('cheerio');
+
 @Injectable()
 export class EmuleService implements OnModuleInit {
     emuleRequest: Queue;
-    baseUrl: string = 'http://192.168.1.100:4711';
-    password: string = 'df985';
+    baseUrl: string = this.configService.get<string>('EMULE_URL_PORT');
+    password: string = this.configService.get<string>('PASSWORD');
+    radarrFolder: string = this.configService.get<string>('RADARR_FOLDER');
+    filesInDonwload: string[] = [];
     constructor(
         @InjectQueue('emuleRequest') private emuleRequestQueue: Queue,
         @InjectQueue('emuleSearch') private emuleSearchQueue: Queue,
         @InjectQueue('emuleSearchResult') private emuleSearchResultQueue: Queue,
 
-
         private readonly httpService: HttpService,
-        private redisCacheService: RedisCacheService
-    ) { }
+        private redisCacheService: RedisCacheService,
+        private configService: ConfigService
+    ) {
+
+
+
+    }
     async onModuleInit() {
         await this.emuleRequestQueue.obliterate({ force: true });
         await this.emuleSearchQueue.obliterate({ force: true });
+
+        const watcher = chokidar.watch(this.radarrFolder, {
+            persistent: true
+        });
+
+        // Something to use when events are received.
+        const log = console.log.bind(console);
+        // Add event listeners.
+        watcher
+            .on('add', path => log(`File ${path} has been added`))
+            .on('change', path => log(`File ${path} has been changed`))
+            .on('unlink', path => log(`File ${path} has been removed`));
+
     }
 
 
@@ -35,7 +59,7 @@ export class EmuleService implements OnModuleInit {
         const job = await this.emuleRequestQueue.add(dataObject.jobType,
             dataObject,
             {
-                delay: 5000,
+                delay: 3000,
                 removeOnFail: true,
                 removeOnComplete: false,
                 priority: priority
@@ -74,7 +98,7 @@ export class EmuleService implements OnModuleInit {
     async validation(data: string, urlParameters): Promise<string> {
         let result: string = data;
         if (await this.checkLoginPage(result)) {
-            urlParameters.ses = await this.redisCacheService.retriveValue();
+            urlParameters.ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
             result = await this.makeRequest(urlParameters);
             if (await this.checkLoginPage(result)) {
                 throw Error("Error in login, check emule");
@@ -89,13 +113,13 @@ export class EmuleService implements OnModuleInit {
         } catch (error) {
             return error;
         }
-        await this.redisCacheService.storeValue(value);
-        const idStoredValue = await this.redisCacheService.retriveValue();
+        await this.redisCacheService.storeValue("emuleId", { ses: value });
+        const idStoredValue = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         console.log(idStoredValue);
     }
     async getIdEmule() {
         const urlParameters = {
-            'p': 'df985',
+            'p': this.password,
             'w': 'password'
         };
         const html = await this.makeRequest(urlParameters);
@@ -123,7 +147,7 @@ export class EmuleService implements OnModuleInit {
 
     }
     async makeSearch(keyword: string) {
-        const ses = await this.redisCacheService.retriveValue();
+        const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         const urlParameters = {
             'tosearch': keyword,
             'type': 'Video',
@@ -150,7 +174,7 @@ export class EmuleService implements OnModuleInit {
         try {
 
 
-            const ses = await this.redisCacheService.retriveValue();
+            const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
             const urlParameters = {
                 'ses': ses,
                 'w': 'search'
@@ -198,7 +222,7 @@ export class EmuleService implements OnModuleInit {
 
     async getDownloads() {
 
-        const ses = await this.redisCacheService.retriveValue();
+        const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         const urlParameters = {
             'ses': ses,
             'w': 'transfer',
@@ -238,7 +262,7 @@ export class EmuleService implements OnModuleInit {
                 //Format the text by jumplines and avoid empty entry
                 const result = (donwloadsPopup[2].split("\\n").filter((elemnt) => elemnt.length > 0));
                 let dataFile = {
-                    fileName: result[0]
+                    fileName: result[0].replace("'", "")
                 };
 
                 //Transform each entry
@@ -264,18 +288,55 @@ export class EmuleService implements OnModuleInit {
                 const totalSize: string = sizeClean[1] ?? sizeClean[0];
                 const downloadedSize: string = sizeClean[0];
 
-                const ed2kFile = new Ed2kfile(infoDownload[0], hash, totalSize, dataFile['Status'] ?? "Completed", downloadSpeed[2] ?? '0', downloadedSize, " ")
+                const ed2kFile = new Ed2kfile(dataFile.fileName, hash, totalSize, dataFile['Status'] ?? "Completed", downloadSpeed[2] ?? '0', downloadedSize, this.radarrFolder)
 
                 files.push(ed2kFile);
             }
 
         });
+        files.forEach(async file => {
+            await this.redisCacheService.storeValue(file.$fileName, file);
+        });
 
-        return files;
+
+        let sharedFiles = await this.getSharedFiles();
+
+        /*
+        fs.readdir(this.radarrFolder, (err, files) => {
+            sharedFiles = sharedFiles.filter((elemnt: Ed2kfile) => {
+                files.forEach(__filename => {
+                    if (elemnt.$fileName == __filename) {
+                        return elemnt;
+                    }
+                });
+
+            });
+        });
+                */
+
+        let result = []
+        let filesInFolder = await fsp.readdir(this.radarrFolder);
+        for (const sharedFile of sharedFiles) {
+            if (filesInFolder.includes(sharedFile._fileName)) {
+                result.push(sharedFile);
+            }
+        }
+
+        let resultEd2k = files.filter(o1 => result.some((o2) => {
+            o1._hash == o2._hash
+        }))
+
+
+
+        const resultDonwload = files.concat(result);
+
+        return resultDonwload;
     }
 
     async startDownload(keyword: string) {
-        const ses = await this.redisCacheService.retriveValue();
+
+
+        const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         const urlParameters = {
             'ses': ses,
             'w': 'transfer',
@@ -290,12 +351,87 @@ export class EmuleService implements OnModuleInit {
 
         data = await this.validation(html, urlParameters);
 
+        await this.redisCacheService.cleanValue('/emule/downloads');
         return data;
+    }
+
+    async getSharedFiles() {
+
+
+        const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
+        const urlParameters = {
+            'ses': ses,
+            'w': 'shared',
+        };
+        let html: string;
+        html = await this.makeRequest(urlParameters);
+
+        let data: string = html;
+
+        data = await this.validation(html, urlParameters);
+
+        const node = parse(data);
+        let $ = cheerio.load(data);
+
+        let files = [];
+
+        /*
+        $("acronym").each((i, el) => {
+            const infoFileDonwload = $(el).attr('title').replace('\r').split('Hash:');
+            files.push(infoFileDonwload);
+
+
+        });
+
+        */
+
+        const nodes = $("table.shared-line-file-left");
+        $("tr", nodes).each((i, el) => {
+            if (($(el).find("a").attr('onmouseover')) !== 'undefined') {
+                const edk2linkClean = ($(el).find("a").attr('onmouseover').replace("sharedmenu(event,'", '').replace("')", ''));
+
+                let ed2kInfo = edk2linkClean.split("|");
+
+                const fileName = ed2kInfo[2].replaceAll("%20", " ");
+
+                ed2kInfo[2] = ed2kInfo[2].replaceAll(' ', "%20");
+                const urled2k = ed2kInfo.join('|');
+
+                const peersSeeds = (($(el.children[7]).text()).replace([')'], '')).split('(');
+
+                //const ed2kSearch = new Ed2kSearch(fileName, ed2kInfo[4], ed2kInfo[3], urled2k, parseInt(peersSeeds[0]), parseInt(peersSeeds[1]));
+                const ed2kFile = new Ed2kfile(fileName, ed2kInfo[4], ed2kInfo[3], "Completed", '0', ed2kInfo[3], this.radarrFolder)
+
+
+                files.push(ed2kFile);
+            }
+
+        });
+
+        return files;
+
+    }
+
+    async removeDownload(keyword: string) {
+        const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
+        const urlParameters = {
+            'ses': ses,
+            'w': 'transfer',
+            'ed2k': keyword,
+            'cat': 5
+
+        };
+        let html: string;
+        html = await this.makeRequest(urlParameters);
+
+        let data: string = html;
+
+        data = await this.validation(html, urlParameters);
     }
 
     async getStatus() {
 
-        const ses = await this.redisCacheService.retriveValue();
+        const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         const urlParameters = {
             'ses': ses,
             'w': 'myinfo'
@@ -330,7 +466,8 @@ export class EmuleService implements OnModuleInit {
             const { data } = await firstValueFrom(
                 this.httpService.post<any>(this.baseUrl + '/',
                     config.urlParam, {
-                    headers: config.headers
+                    headers: config.headers,
+                    timeout: 190000
                 }).pipe(
                     catchError((error: AxiosError) => {
                         console.log(error.response.data);
@@ -357,9 +494,9 @@ export class EmuleService implements OnModuleInit {
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
                 'Accept-Language': 'en-US,en;q=0.5',
                 'Accept-Encoding': 'gzip, deflate',
-                'Origin': 'http://192.168.1.100:4711',
+                'Origin': this.baseUrl,
                 'Connection': 'keep-alive',
-                'Referer': 'http://192.168.1.100:4711',
+                'Referer': this.baseUrl,
                 'Upgrade-Insecure-Requests': '1'
             }
         }

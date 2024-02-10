@@ -1,10 +1,11 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { EmuleService } from './emule.service';
 import { SearchDto } from './dto/search.dto';
 import { JobData } from './entity/JobData.class';
 import { query } from 'express';
 import { CheckApiGuard } from 'src/check-api/check-api.guard';
 import { DownloadDto } from './dto/DownloadDto';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @UseGuards(CheckApiGuard)
 @Controller('emule')
@@ -48,6 +49,8 @@ export class EmuleController {
 
     }
 
+    @UseInterceptors(CacheInterceptor)
+    @CacheTTL(90000)
     @Get("downloads")
     async downloads() {
         console.log(`Request GET downloads `);
@@ -63,6 +66,15 @@ export class EmuleController {
 
         const jobData = new JobData("addDownloads", ed2kurl)
         const filesDownloads = await this.emuleService.processRequestQueue(jobData, 8);
+        return filesDownloads;
+    }
+
+    @Get("sharedFiles")
+    async getSharedFiles() {
+        console.log(`Request GET getSharedFiles `);
+
+        const jobData = new JobData("getSharedFiles", "")
+        const filesDownloads = await this.emuleService.processRequestQueue(jobData, 20);
         return filesDownloads;
     }
 }

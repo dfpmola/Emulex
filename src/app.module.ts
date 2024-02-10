@@ -6,6 +6,7 @@ import { BullModule } from '@nestjs/bull';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import { RedisCacheModule } from './redis-cache/redis-cache.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RedisCacheModule } from './redis-cache/redis-cache.module';
       adapter: ExpressAdapter // Or FastifyAdapter from `@bull-board/fastify`
     }),
     RedisCacheModule,
+    ConfigModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],
