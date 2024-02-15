@@ -226,7 +226,7 @@ export class EmuleService implements OnModuleInit {
         const urlParameters = {
             'ses': ses,
             'w': 'transfer',
-            'cat': '5'
+            'cat': '1'
         };
         let html: string;
         html = await this.makeRequest(urlParameters);
@@ -341,7 +341,7 @@ export class EmuleService implements OnModuleInit {
             'ses': ses,
             'w': 'transfer',
             'ed2k': keyword,
-            'cat': 5
+            'cat': 1
 
         };
         let html: string;
@@ -418,7 +418,7 @@ export class EmuleService implements OnModuleInit {
             'ses': ses,
             'w': 'transfer',
             'ed2k': keyword,
-            'cat': 5
+            'cat': 1
 
         };
         let html: string;
