@@ -298,39 +298,39 @@ export class EmuleService implements OnModuleInit {
             await this.redisCacheService.storeValue(file.$fileName, file);
         });
 
-
-        let sharedFiles = await this.getSharedFiles();
-
         /*
-        fs.readdir(this.radarrFolder, (err, files) => {
-            sharedFiles = sharedFiles.filter((elemnt: Ed2kfile) => {
-                files.forEach(__filename => {
-                    if (elemnt.$fileName == __filename) {
-                        return elemnt;
-                    }
-                });
-
-            });
-        });
-                */
-
-        let result = []
-        let filesInFolder = await fsp.readdir(this.radarrFolder);
-        for (const sharedFile of sharedFiles) {
-            if (filesInFolder.includes(sharedFile._fileName)) {
-                result.push(sharedFile);
-            }
-        }
-
-        let resultEd2k = files.filter(o1 => result.some((o2) => {
-            o1._hash == o2._hash
-        }))
-
-
-
-        const resultDonwload = files.concat(result);
-
-        return resultDonwload;
+               let sharedFiles = await this.getSharedFiles();
+       
+              
+               fs.readdir(this.radarrFolder, (err, files) => {
+                   sharedFiles = sharedFiles.filter((elemnt: Ed2kfile) => {
+                       files.forEach(__filename => {
+                           if (elemnt.$fileName == __filename) {
+                               return elemnt;
+                           }
+                       });
+       
+                   });
+               });
+                       
+       
+               let result = []
+               let filesInFolder = await fsp.readdir(this.radarrFolder);
+               for (const sharedFile of sharedFiles) {
+                   if (filesInFolder.includes(sharedFile._fileName)) {
+                       result.push(sharedFile);
+                   }
+               }
+       
+               let resultEd2k = files.filter(o1 => result.some((o2) => {
+                   o1._hash == o2._hash
+               }))
+       
+       
+       
+               const resultDonwload = files.concat(result);
+       */
+        return files;
     }
 
     async startDownload(keyword: string) {
@@ -419,7 +419,6 @@ export class EmuleService implements OnModuleInit {
             'w': 'transfer',
             'ed2k': keyword,
             'cat': 1
-
         };
         let html: string;
         html = await this.makeRequest(urlParameters);
@@ -470,7 +469,7 @@ export class EmuleService implements OnModuleInit {
                     timeout: 190000
                 }).pipe(
                     catchError((error: AxiosError) => {
-                        console.log(error.response.data);
+                        console.log(error);
                         throw 'Error in login request'
                     })
                 )
