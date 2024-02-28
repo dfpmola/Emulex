@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { EmuleService } from './emule.service';
-import { EmuleController } from './emule.controller';
 import { BullModule } from '@nestjs/bull';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
@@ -50,7 +49,6 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule
   ],
   providers: [EmuleService, EmuleRequestConsumer, EmuleSearchConsumer, EmuleSearchResultConsumer],
-  controllers: [EmuleController],
-  exports: [BullModule]
+  exports: [BullModule, EmuleService]
 })
 export class EmuleModule { }

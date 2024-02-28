@@ -10,13 +10,14 @@ import { parse } from 'node-html-parser';
 import { Ed2kfile } from './entity/Ed2kfile.class';
 import { Ed2kSearch } from './entity/Ed2kSearch.class';
 import { ConfigService } from '@nestjs/config';
+import { EmulexServiceInterface } from '../emulex/emulex.service.interface';
 const chokidar = require('chokidar');
 const fs = require('fs');
 const fsp = fs.promises;
 const cheerio = require('cheerio');
 
 @Injectable()
-export class EmuleService implements OnModuleInit {
+export class EmuleService implements OnModuleInit, EmulexServiceInterface {
     emuleRequest: Queue;
     baseUrl: string = this.configService.get<string>('EMULE_URL_PORT');
     password: string = this.configService.get<string>('PASSWORD');
@@ -117,7 +118,7 @@ export class EmuleService implements OnModuleInit {
         const idStoredValue = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         console.log(idStoredValue);
     }
-    async getIdEmule() {
+    async getIdEmule(): Promise<string> {
         const urlParameters = {
             'p': this.password,
             'w': 'password'
@@ -146,7 +147,7 @@ export class EmuleService implements OnModuleInit {
 
 
     }
-    async makeSearch(keyword: string) {
+    async makeSearch(keyword: string): Promise<string> {
         const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         const urlParameters = {
             'tosearch': keyword,
@@ -169,7 +170,7 @@ export class EmuleService implements OnModuleInit {
 
         return data;
     }
-    async getSearchResults() {
+    async getSearchResults(): Promise<Ed2kSearch[]> {
 
         try {
 
@@ -189,7 +190,7 @@ export class EmuleService implements OnModuleInit {
             const node = parse(data);
             let $ = cheerio.load(data);
 
-            let files: Ed2kSearch[] = [];
+            let files = [];
 
             const nodes = $("form[method='GET'] table:has(a:contains('Search'))");
             $("tr", nodes).each((i, el) => {
@@ -220,7 +221,7 @@ export class EmuleService implements OnModuleInit {
         }
     }
 
-    async getDownloads() {
+    async getDownloads(): Promise<Ed2kfile[]> {
 
         const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         const urlParameters = {
@@ -333,7 +334,7 @@ export class EmuleService implements OnModuleInit {
         return files;
     }
 
-    async startDownload(keyword: string) {
+    async startDownload(keyword: string): Promise<string> {
 
 
         const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
@@ -355,7 +356,7 @@ export class EmuleService implements OnModuleInit {
         return data;
     }
 
-    async getSharedFiles() {
+    async getSharedFiles(): Promise<[Ed2kfile]> {
 
 
         const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
@@ -412,7 +413,7 @@ export class EmuleService implements OnModuleInit {
 
     }
 
-    async removeDownload(keyword: string) {
+    async removeDownload(keyword: string): Promise<void> {
         const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         const urlParameters = {
             'ses': ses,
@@ -428,7 +429,7 @@ export class EmuleService implements OnModuleInit {
         data = await this.validation(html, urlParameters);
     }
 
-    async getStatus() {
+    async getStatus(): Promise<number> {
 
         const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];
         const urlParameters = {
@@ -458,7 +459,7 @@ export class EmuleService implements OnModuleInit {
 
 
     }
-    async makeRequest(parameters) {
+    async makeRequest(parameters): Promise<string> {
         try {
             const config = this.configGenerator(parameters);
             console.log(`Start HTTP request with parameter: ${JSON.stringify(parameters)}`);
@@ -484,7 +485,7 @@ export class EmuleService implements OnModuleInit {
 
 
     }
-    configGenerator(urlParameters: string[][]) {
+    configGenerator(urlParameters: string[][]): { urlParam: URLSearchParams; headers: object; } {
 
         let config = {
             urlParam: new URLSearchParams(urlParameters),

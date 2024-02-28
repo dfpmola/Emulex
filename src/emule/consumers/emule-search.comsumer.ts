@@ -17,7 +17,6 @@ export class EmuleSearchConsumer {
     async searchEmule(job: Job<JobData>) {
         //TODO check if is other search is in queue, if is wait until finish search and retrive results.
 
-
         const jobList = await this.emuleSearchQueue.getJobs(['waiting', 'active', 'delayed']);
         let result = jobList.find(obj => {
             return obj.name === "searchResult"
@@ -39,20 +38,6 @@ export class EmuleSearchConsumer {
         });
         const JobSearch = await jobRequest.finished();
         let JobSearchResult;
-
-        /*
-        if (await this.emuleService.checkLoginPageSearch(JobSearch)) {
-            const jobRequest = await this.emuleRequestQueue.add("search", job.data, {
-                delay: 1000, attempts: 1,
-                removeOnFail: true,
-                removeOnComplete: false,
-            });
-            const JobSearch = await jobRequest.finished();
-            if (await this.emuleService.checkLoginPageSearch(JobSearch)) {
-                throw Error("Error in login, check emule");
-            }
-        }
-        */
 
         if (jobRequest.data._jobType === 'search') {
 
@@ -77,23 +62,4 @@ export class EmuleSearchConsumer {
 
 
     }
-    /*
-    @Process({ name: 'searchResult', concurrency: 1 })
-    async searchResultEmule(job: Job<JobData>) {
-        const jobRequest = await this.emuleRequestQueue.add("searchResult", job.data, {
-            delay: 1000,
-            removeOnFail: true,
-            removeOnComplete: false,
-        });
-        try {
-            const JobSearch = await jobRequest.finished();
-            return JobSearch;
-        }
-        catch (error) {
-            console.log(Error);
-            throw Error("Job emuleRequestQueue ended with error")
-        }
-
-    }
-    */
 }

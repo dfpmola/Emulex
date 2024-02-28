@@ -28,10 +28,6 @@ export class EmuleSearchResultConsumer {
             console.log(Error);
             throw Error("Job emuleRequestQueue ended with error")
         }
-
-
-
-
     }
 
 }

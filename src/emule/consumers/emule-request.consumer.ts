@@ -10,35 +10,6 @@ export class EmuleRequestConsumer {
         @InjectQueue('emuleSearch') private emuleSearchQueue: Queue,
     ) { }
 
-    /*
-    @Process()
-    async syncRequestEmule(job: Job<JobData>) {
-        const jobData = new JobData(job.data._jobType, job.data._keyword);
-
-        try {
-            const jobType = jobData.jobType;
-            switch (jobType) {
-                case 'managment':
-                    //this.emuleService.makeRequest()
-                    break;
-                case 'search':
-                    const data = await this.emuleService.makeSearch(jobData.keyword);
-                    return data;
-
-                case 'searchResult':
-                    const dataSearchResult = await this.emuleService.getSearchResults()
-                    return "todo bien";
-                default:
-                    break;
-            }
-        } catch (error) {
-            console.log(Error);
-            throw Error("Job syncRequestEmule ended with error")
-
-        }
-
-    }
-    */
     @Process({ name: "search", concurrency: 1 })
     async syncsearchRequestEmule(job: Job<JobData>) {
         const jobData = new JobData(job.data._jobType, job.data._keyword);
