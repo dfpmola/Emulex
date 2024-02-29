@@ -5,18 +5,18 @@ import { BullBoardModule } from '@bull-board/nestjs';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { HttpModule } from '@nestjs/axios';
 import { RedisCacheModule } from 'src/redis-cache/redis-cache.module';
-import { EmuleRequestConsumer } from './consumers/emule-request.consumer';
-import { EmuleSearchConsumer } from './consumers/emule-search.comsumer';
-import { EmuleSearchResultConsumer } from './consumers/emule-searchResult.comsumer';
+import { EmulexRequestConsumer } from '../emulex/consumers/emulex-request.consumer';
+import { EmulexSearchConsumer } from '../emulex/consumers/emulex-search.comsumer';
+import { EmulexSearchResultConsumer } from '../emulex/consumers/emulex-searchResult.comsumer';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     BullModule.registerQueue({
-      name: "emuleRequest"
+      name: "emulexRequest"
     },
       {
-        name: 'emuleSearch',
+        name: 'emulexSearch',
         settings: {
           lockDuration: 300000,
         }
@@ -29,11 +29,11 @@ import { ConfigModule } from '@nestjs/config';
       }
     ),
     BullBoardModule.forFeature({
-      name: 'emuleRequest',
+      name: 'emulexRequest',
       adapter: BullMQAdapter, //or use BullAdapter if you're using bull instead of bullMQ
     },
       {
-        name: 'emuleSearch',
+        name: 'emulexSearch',
         adapter: BullMQAdapter, //or use BullAdapter if you're using bull instead of bullMQ
       },
       {
@@ -48,7 +48,7 @@ import { ConfigModule } from '@nestjs/config';
     CacheModule.register(),
     ConfigModule
   ],
-  providers: [EmuleService, EmuleRequestConsumer, EmuleSearchConsumer, EmuleSearchResultConsumer],
+  providers: [EmuleService],
   exports: [BullModule, EmuleService]
 })
 export class EmuleModule { }

@@ -9,6 +9,9 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule } from '@nestjs/config';
 import { RedisCacheModule } from 'src/redis-cache/redis-cache.module';
 import { DynamicModule, Module } from '@nestjs/common';
+import { EmulexRequestConsumer } from './consumers/emulex-request.consumer';
+import { EmulexSearchConsumer } from './consumers/emulex-search.comsumer';
+import { EmulexSearchResultConsumer } from './consumers/emulex-searchResult.comsumer';
 
 @Module({})
 export class EmulexDynamicModule {
@@ -22,10 +25,10 @@ export class EmulexDynamicModule {
       module: EmulexDynamicModule,
       imports: [
         BullModule.registerQueue({
-          name: "emuleRequest"
+          name: "emulexRequest"
         },
           {
-            name: 'emuleSearch',
+            name: 'emulexSearch',
             settings: {
               lockDuration: 300000,
             }
@@ -38,11 +41,11 @@ export class EmulexDynamicModule {
           }
         ),
         BullBoardModule.forFeature({
-          name: 'emuleRequest',
+          name: 'emulexRequest',
           adapter: BullMQAdapter, //or use BullAdapter if you're using bull instead of bullMQ
         },
           {
-            name: 'emuleSearch',
+            name: 'emulexSearch',
             adapter: BullMQAdapter, //or use BullAdapter if you're using bull instead of bullMQ
           },
           {
@@ -58,7 +61,7 @@ export class EmulexDynamicModule {
         ConfigModule
       ],
       controllers: [EmulexController],
-      providers: [serviceProvider],
+      providers: [serviceProvider, EmulexRequestConsumer, EmulexSearchConsumer, EmulexSearchResultConsumer],
       exports: [serviceProvider]
     }
   }

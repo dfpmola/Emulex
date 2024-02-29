@@ -1,4 +1,4 @@
-import { JobData } from '../emule/entity/JobData.class';
+import { JobData } from './entity/JobData.class';
 
 export interface EmulexServiceInterface {
     processRequestQueue(dataObject: JobData, priority: number);
@@ -14,6 +14,6 @@ export interface EmulexServiceInterface {
     getSharedFiles();
     removeDownload(keyword: string);
     getStatus();
-    makeRequest(parameters);
+    makeRequest(parameters, path: string);
     configGenerator(urlParameters: string[][]);
 }

@@ -48,6 +48,8 @@ export class Ed2kfile extends Ed2k {
                 return Status.downloading;
             case "Waiting":
                 return Status.waiting;
+            case "Paused":
+                return Status.paused;
             case "Completed":
                 return Status.complete;
             case "Hashing":

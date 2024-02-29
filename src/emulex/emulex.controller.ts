@@ -2,11 +2,12 @@ import { Body, Controller, Get, HttpStatus, Inject, Param, Post, Query, Res, Use
 import { CheckApiGuard } from 'src/check-api/check-api.guard';
 import { EmulexServiceInterface } from './emulex.service.interface';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
-import { DownloadDto } from 'src/emule/dto/DownloadDto';
-import { SearchDto } from 'src/emule/dto/search.dto';
-import { JobData } from 'src/emule/entity/JobData.class';
+import { DownloadDto } from 'src/emulex/dto/DownloadDto';
+import { SearchDto } from 'src/emulex/dto/search.dto';
+import { JobData } from 'src/emulex/entity/JobData.class';
 import { OnConnectionClosed } from 'src/on-connection-closed/on-connection-closed.decorator';
 import { Observable } from 'rxjs';
+import { RemoveDto } from './dto/remove.dto';
 
 @UseGuards(CheckApiGuard)
 @Controller('emulex')
@@ -54,8 +55,8 @@ export class EmulexController {
 
     }
 
-    @UseInterceptors(CacheInterceptor)
-    @CacheTTL(90000)
+    //@UseInterceptors(CacheInterceptor)
+    //@CacheTTL(90000)
     @Get("downloads")
     async downloads() {
         console.log(`Request GET downloads `);
@@ -81,6 +82,18 @@ export class EmulexController {
         const jobData = new JobData("getSharedFiles", "")
         const filesDownloads = await this.emulexService.processRequestQueue(jobData, 20);
         return filesDownloads;
+    }
+
+    @Post("delete")
+    async removeDownload(@Res() response, @Body() removeDto: RemoveDto) {
+        console.log(`Request POST removeDownload `);
+        const hash = removeDto.hash;
+
+        const jobData = new JobData("removeDownload", hash)
+        const statusCode = await this.emulexService.processRequestQueue(jobData, 8);
+
+        const responseCode = statusCode === 503 ? HttpStatus.SERVICE_UNAVAILABLE : HttpStatus.OK;
+        return response.status(responseCode).send();
     }
 
 }

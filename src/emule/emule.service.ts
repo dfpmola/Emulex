@@ -5,10 +5,10 @@ import { AxiosError } from 'axios';
 import { Queue } from 'bull';
 import { catchError, firstValueFrom } from 'rxjs';
 import { RedisCacheService } from 'src/redis-cache/redis-cache.service';
-import { JobData } from './entity/JobData.class';
+import { JobData } from '../emulex/entity/JobData.class';
 import { parse } from 'node-html-parser';
-import { Ed2kfile } from './entity/Ed2kfile.class';
-import { Ed2kSearch } from './entity/Ed2kSearch.class';
+import { Ed2kfile } from '../emulex/entity/Ed2kfile.class';
+import { Ed2kSearch } from '../emulex/entity/Ed2kSearch.class';
 import { ConfigService } from '@nestjs/config';
 import { EmulexServiceInterface } from '../emulex/emulex.service.interface';
 const chokidar = require('chokidar');
@@ -18,15 +18,15 @@ const cheerio = require('cheerio');
 
 @Injectable()
 export class EmuleService implements OnModuleInit, EmulexServiceInterface {
-    emuleRequest: Queue;
+    emulexRequest: Queue;
     baseUrl: string = this.configService.get<string>('EMULE_URL_PORT');
-    password: string = this.configService.get<string>('PASSWORD');
+    password: string = this.configService.get<string>('EMULE_PASSWORD');
     radarrFolder: string = this.configService.get<string>('RADARR_FOLDER');
     filesInDonwload: string[] = [];
     constructor(
-        @InjectQueue('emuleRequest') private emuleRequestQueue: Queue,
-        @InjectQueue('emuleSearch') private emuleSearchQueue: Queue,
-        @InjectQueue('emuleSearchResult') private emuleSearchResultQueue: Queue,
+        @InjectQueue('emulexRequest') private emulexRequestQueue: Queue,
+        @InjectQueue('emulexSearch') private emulexSearchQueue: Queue,
+        @InjectQueue('emuleSearchResult') private emulexSearchResultQueue: Queue,
 
         private readonly httpService: HttpService,
         private redisCacheService: RedisCacheService,
@@ -37,8 +37,8 @@ export class EmuleService implements OnModuleInit, EmulexServiceInterface {
 
     }
     async onModuleInit() {
-        await this.emuleRequestQueue.obliterate({ force: true });
-        await this.emuleSearchQueue.obliterate({ force: true });
+        await this.emulexRequestQueue.obliterate({ force: true });
+        await this.emulexSearchQueue.obliterate({ force: true });
 
         const watcher = chokidar.watch(this.radarrFolder, {
             persistent: true
@@ -57,7 +57,7 @@ export class EmuleService implements OnModuleInit, EmulexServiceInterface {
 
 
     async processRequestQueue(dataObject: JobData, priority: number) {
-        const job = await this.emuleRequestQueue.add(dataObject.jobType,
+        const job = await this.emulexRequestQueue.add(dataObject.jobType,
             dataObject,
             {
                 delay: 3000,
@@ -72,7 +72,7 @@ export class EmuleService implements OnModuleInit, EmulexServiceInterface {
         return data;
     }
     async processSearchQueue(dataObject: JobData, priority: number) {
-        const job = await this.emuleSearchQueue.add("search",
+        const job = await this.emulexSearchQueue.add("search",
             dataObject,
             {
                 delay: 1000,
@@ -141,7 +141,7 @@ export class EmuleService implements OnModuleInit, EmulexServiceInterface {
             return contenido;
         } else {
             console.log("No se encontró ninguna coincidencia.");
-            return Error("NO ses found");
+            throw Error("NO ses found");
         }
 
 
@@ -352,11 +352,11 @@ export class EmuleService implements OnModuleInit, EmulexServiceInterface {
 
         data = await this.validation(html, urlParameters);
 
-        await this.redisCacheService.cleanValue('/emule/downloads');
+        await this.redisCacheService.cleanValue('/emulex/downloads');
         return data;
     }
 
-    async getSharedFiles(): Promise<[Ed2kfile]> {
+    async getSharedFiles(): Promise<Ed2kfile[]> {
 
 
         const ses = (await this.redisCacheService.retriveValue("emuleId"))['ses'];

@@ -1,15 +1,18 @@
 import { InjectQueue, Process, Processor } from "@nestjs/bull";
 import { Job, Queue } from "bull";
 import { JobData } from "../entity/JobData.class";
-import { EmuleService } from "../emule.service";
+import { EmuleService } from "../../emule/emule.service";
+import { Inject } from "@nestjs/common";
+import { EmulexServiceInterface } from "../emulex.service.interface";
 
-@Processor('emuleSearch')
-export class EmuleSearchConsumer {
+@Processor('emulexSearch')
+export class EmulexSearchConsumer {
     constructor(
-        private emuleService: EmuleService,
-        @InjectQueue('emuleRequest') private emuleRequestQueue: Queue,
-        @InjectQueue('emuleSearch') private emuleSearchQueue: Queue,
-        @InjectQueue('emuleSearchResult') private emuleSearchResultQueue: Queue,
+        @Inject('EmulexServiceInterface') private emulexService: EmulexServiceInterface,
+
+        @InjectQueue('emulexRequest') private emulexRequestQueue: Queue,
+        @InjectQueue('emulexSearch') private emulexSearchQueue: Queue,
+        @InjectQueue('emuleSearchResult') private emulexSearchResultQueue: Queue,
 
 
     ) { }
@@ -17,13 +20,13 @@ export class EmuleSearchConsumer {
     async searchEmule(job: Job<JobData>) {
         //TODO check if is other search is in queue, if is wait until finish search and retrive results.
 
-        const jobList = await this.emuleSearchQueue.getJobs(['waiting', 'active', 'delayed']);
+        const jobList = await this.emulexSearchQueue.getJobs(['waiting', 'active', 'delayed']);
         let result = jobList.find(obj => {
             return obj.name === "searchResult"
         })
         if (jobList.length != 0 && result) {
-            await this.emuleSearchQueue.add(job, {
-                delay: 1000,
+            await this.emulexSearchQueue.add(job, {
+                delay: 5000,
                 removeOnFail: true
 
             },)
@@ -31,7 +34,7 @@ export class EmuleSearchConsumer {
         }
 
 
-        const jobRequest = await this.emuleRequestQueue.add("search", job.data, {
+        const jobRequest = await this.emulexRequestQueue.add("search", job.data, {
             delay: 1000,
             removeOnFail: true,
             removeOnComplete: false,
@@ -41,7 +44,7 @@ export class EmuleSearchConsumer {
 
         if (jobRequest.data._jobType === 'search') {
 
-            JobSearchResult = await this.emuleSearchResultQueue.add('searchResult', new JobData('searchResult', ''),
+            JobSearchResult = await this.emulexSearchResultQueue.add('searchResult', new JobData('searchResult', ''),
                 {
                     'delay': 8000,
                     'lifo': true,
